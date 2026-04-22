@@ -1,32 +1,180 @@
 {
   "complaints": [
-    { "id": 1, "lat": 40.3777, "lng": 49.8340, "title": "Yolda çuxur var", "status": "Yeni", "rayon": "Nəsimi", "date": "18.04.2026" },
-    { "id": 2, "lat": 40.4065, "lng": 49.9612, "title": "Körpü zədəsi", "status": "İcradadır", "rayon": "Xətai", "date": "15.04.2026" },
-    { "id": 3, "lat": 40.4530, "lng": 49.9020, "title": "Kanalizasiya problemi", "status": "Yeni", "rayon": "Sabunçu", "date": "20.04.2026" },
-    { "id": 4, "lat": 40.3920, "lng": 49.8080, "title": "Səkilər sınıb", "status": "Həll edildi", "rayon": "Yasamal", "date": "10.04.2026" },
-    { "id": 5, "lat": 40.4203, "lng": 50.0047, "title": "Yol işarəsi yoxdur", "status": "Yeni", "rayon": "Suraxanı", "date": "21.04.2026" }
+    {
+      "id": 1,
+      "lat": 40.3777,
+      "lng": 49.834,
+      "title": "Yolda çuxur var",
+      "status": "Yeni",
+      "rayon": "Nəsimi",
+      "date": "18.04.2026"
+    },
+    {
+      "id": 2,
+      "lat": 40.4065,
+      "lng": 49.9612,
+      "title": "Körpü zədəsi",
+      "status": "İcradadır",
+      "rayon": "Xətai",
+      "date": "15.04.2026"
+    },
+    {
+      "id": 3,
+      "lat": 40.453,
+      "lng": 49.902,
+      "title": "Kanalizasiya problemi",
+      "status": "Yeni",
+      "rayon": "Sabunçu",
+      "date": "20.04.2026"
+    },
+    {
+      "id": 4,
+      "lat": 40.392,
+      "lng": 49.808,
+      "title": "Səkilər sınıb",
+      "status": "Həll edildi",
+      "rayon": "Yasamal",
+      "date": "10.04.2026"
+    },
+    {
+      "id": 5,
+      "lat": 40.4203,
+      "lng": 50.0047,
+      "title": "Yol işarəsi yoxdur",
+      "status": "Yeni",
+      "rayon": "Suraxanı",
+      "date": "21.04.2026"
+    }
   ],
   "streetLights": [
-    { "id": 1, "lat": 40.3695, "lng": 49.8295, "title": "Füzuli küçəsi - işıq problemi", "status": "Aktiv", "date": "19.04.2026" },
-    { "id": 2, "lat": 40.3812, "lng": 49.8712, "title": "Neftçilər prospekti - işıq problemi", "status": "Aktiv", "date": "17.04.2026" },
-    { "id": 3, "lat": 40.4380, "lng": 49.9580, "title": "Hüsü Hacıyev - işıq problemi", "status": "Həll edildi", "date": "12.04.2026" },
-    { "id": 4, "lat": 40.4120, "lng": 49.8450, "title": "Tbilisi prospekti - işıq problemi", "status": "Aktiv", "date": "20.04.2026" }
+    {
+      "id": 1,
+      "lat": 40.3695,
+      "lng": 49.8295,
+      "title": "Füzuli küçəsi - işıq problemi",
+      "status": "Aktiv",
+      "date": "19.04.2026"
+    },
+    {
+      "id": 2,
+      "lat": 40.3812,
+      "lng": 49.8712,
+      "title": "Neftçilər prospekti - işıq problemi",
+      "status": "Aktiv",
+      "date": "17.04.2026"
+    },
+    {
+      "id": 3,
+      "lat": 40.438,
+      "lng": 49.958,
+      "title": "Hüsü Hacıyev - işıq problemi",
+      "status": "Həll edildi",
+      "date": "12.04.2026"
+    },
+    {
+      "id": 4,
+      "lat": 40.412,
+      "lng": 49.845,
+      "title": "Tbilisi prospekti - işıq problemi",
+      "status": "Aktiv",
+      "date": "20.04.2026"
+    }
   ],
   "wastePoints": [
-    { "id": 1, "lat": 40.3860, "lng": 49.8520, "title": "Konteyner-1 — Nəsimi", "dolulug": 45, "date": "22.04.2026" },
-    { "id": 2, "lat": 40.3990, "lng": 49.9750, "title": "Konteyner-2 — Xətai", "dolulug": 78, "date": "22.04.2026" },
-    { "id": 3, "lat": 40.4480, "lng": 49.8870, "title": "Konteyner-3 — Sabunçu", "dolulug": 92, "date": "22.04.2026" },
-    { "id": 4, "lat": 40.4050, "lng": 49.8220, "title": "Konteyner-4 — Yasamal", "dolulug": 20, "date": "22.04.2026" },
-    { "id": 5, "lat": 40.3980, "lng": 49.9420, "title": "Konteyner-5 — Nərimanov", "dolulug": 65, "date": "22.04.2026" }
+    {
+      "id": 1,
+      "lat": 40.386,
+      "lng": 49.852,
+      "title": "Konteyner-1 — Nəsimi",
+      "dolulug": 45,
+      "date": "22.04.2026"
+    },
+    {
+      "id": 2,
+      "lat": 40.399,
+      "lng": 49.975,
+      "title": "Konteyner-2 — Xətai",
+      "dolulug": 78,
+      "date": "22.04.2026"
+    },
+    {
+      "id": 3,
+      "lat": 40.448,
+      "lng": 49.887,
+      "title": "Konteyner-3 — Sabunçu",
+      "dolulug": 92,
+      "date": "22.04.2026"
+    },
+    {
+      "id": 4,
+      "lat": 40.405,
+      "lng": 49.822,
+      "title": "Konteyner-4 — Yasamal",
+      "dolulug": 20,
+      "date": "22.04.2026"
+    },
+    {
+      "id": 5,
+      "lat": 40.398,
+      "lng": 49.942,
+      "title": "Konteyner-5 — Nərimanov",
+      "dolulug": 65,
+      "date": "22.04.2026"
+    }
   ],
   "permits": [
-    { "id": 1, "lat": 40.3740, "lng": 49.8420, "title": "Neftçilər prospekti — Yaşayış", "status": "Təsdiqləndi", "type": "Yaşayış", "date": "05.04.2026" },
-    { "id": 2, "lat": 40.4250, "lng": 49.9890, "title": "Xaqani küçəsi — Kommersiya", "status": "Gözləyir", "type": "Kommersiya", "date": "14.04.2026" },
-    { "id": 3, "lat": 40.4620, "lng": 49.9150, "title": "Azadlıq prospekti — İnfra", "status": "Rədd edildi", "type": "İnfrastruktur", "date": "08.04.2026" }
+    {
+      "id": 1,
+      "lat": 40.374,
+      "lng": 49.842,
+      "title": "Neftçilər prospekti — Yaşayış",
+      "status": "Təsdiqləndi",
+      "type": "Yaşayış",
+      "date": "05.04.2026"
+    },
+    {
+      "id": 2,
+      "lat": 40.425,
+      "lng": 49.989,
+      "title": "Xaqani küçəsi — Kommersiya",
+      "status": "Gözləyir",
+      "type": "Kommersiya",
+      "date": "14.04.2026"
+    },
+    {
+      "id": 3,
+      "lat": 40.462,
+      "lng": 49.915,
+      "title": "Azadlıq prospekti — İnfra",
+      "status": "Rədd edildi",
+      "type": "İnfrastruktur",
+      "date": "08.04.2026"
+    }
   ],
   "trafficIncidents": [
-    { "id": 1, "lat": 40.4160, "lng": 49.8680, "title": "Tbilisi prospekti - avtomobil qəzası", "severity": "Yüksək", "date": "22.04.2026" },
-    { "id": 2, "lat": 40.3650, "lng": 49.8180, "title": "Hüsü Hacıyev - yol bağlıdır", "severity": "Orta", "date": "21.04.2026" },
-    { "id": 3, "lat": 40.3890, "lng": 49.9310, "title": "Füzuli küçəsi - sürüşmə", "severity": "Aşağı", "date": "20.04.2026" }
+    {
+      "id": 1,
+      "lat": 40.416,
+      "lng": 49.868,
+      "title": "Tbilisi prospekti - avtomobil qəzası",
+      "severity": "Yüksək",
+      "date": "22.04.2026"
+    },
+    {
+      "id": 2,
+      "lat": 40.365,
+      "lng": 49.818,
+      "title": "Hüsü Hacıyev - yol bağlıdır",
+      "severity": "Orta",
+      "date": "21.04.2026"
+    },
+    {
+      "id": 3,
+      "lat": 40.389,
+      "lng": 49.931,
+      "title": "Füzuli küçəsi - sürüşmə",
+      "severity": "Aşağı",
+      "date": "20.04.2026"
+    }
   ]
 }

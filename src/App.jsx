@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { Route, Routes } from "react-router-dom";
 import Map from "./components/Sidebar/Map/Map";
@@ -10,13 +11,41 @@ import WasteCollections from "./components/Sidebar/sections/WasteCollections/Was
 import ConstructionPermits from "./components/Sidebar/sections/ConstructionPermits/ConstructionPermits";
 import TrafficIncidents from "./components/Sidebar/sections/TrafficIncidents/TrafficIncidents";
 
+const LoadingScreen = () => (
+  <div
+    style={{
+      position: "fixed",
+      inset: 0,
+      background: "#FDAE43",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 9999,
+    }}
+  >
+    <DotLottieReact
+      src="https://lottie.host/6685a8ec-0e11-46c4-8752-891ce3b11894/BCGMryJ0TM.lottie"
+      loop
+      autoplay
+      style={{ width: 600, height: 600 }}
+    />
+  </div>
+);
+
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
   return (
     <div style={{ display: "flex" }}>
+      {loading && <LoadingScreen />}
       <Sidebar />
       <div style={{ flex: 1 }}>
         <Routes>
-          <Route path="/" element={<Map />} />
+          <Route
+            path="/"
+            element={<Map onMapReady={() => setLoading(false)} />}
+          />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/roadissues" element={<RoadIssues />} />

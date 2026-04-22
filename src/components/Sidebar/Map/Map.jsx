@@ -25,6 +25,24 @@ const ICONS = {
   trafficIncidents: makeIcon("🚨", "#EF4444"),
 };
 
+const LAYER_CONFIG = [
+  { key: "complaints", label: "Yol Şikayətləri", icon: "🚧", color: "#F97316" },
+  { key: "streetLights", label: "Küçə İşıqları", icon: "💡", color: "#EAB308" },
+  {
+    key: "wastePoints",
+    label: "Tullantı Məntəqələri",
+    icon: "🗑️",
+    color: "#22C55E",
+  },
+  { key: "permits", label: "Tikinti İcazələri", icon: "🏗️", color: "#3B82F6" },
+  {
+    key: "trafficIncidents",
+    label: "NQ Hadisələri",
+    icon: "🚨",
+    color: "#EF4444",
+  },
+];
+
 const CATEGORY_META = {
   complaints: { label: "Yol Şikayəti", color: "#F97316", bg: "#fff7ed" },
   streetLights: { label: "Küçə İşığı", color: "#EAB308", bg: "#fefce8" },
@@ -74,8 +92,8 @@ const Badge = ({ value, colorMap }) => {
 
 const Field = ({ icon, label, value }) => (
   <div className={styles.field}>
-    <span className={styles.fieldIcon}>{icon}</span>
-    <span className={styles.fieldLabel}>{label}: </span>
+    {icon && <span className={styles.fieldIcon}>{icon}</span>}
+    <span className={styles.fieldLabel}>{label}:</span>
     <span className={styles.fieldValue}>{value}</span>
   </div>
 );
@@ -89,7 +107,7 @@ const PanelContent = ({ item, category }) => {
           label="Status"
           value={<Badge value={item.status} colorMap={STATUS_COLORS} />}
         />
-        <Field label="Tarix" value={item.date ?? "—"} />
+        <Field label="Şikayət tarixi" value={item.date ?? "—"} />
       </div>
     );
 
@@ -108,7 +126,7 @@ const PanelContent = ({ item, category }) => {
               : "Problem həll edilib"
           }
         />
-        <Field label="Tarix" value={item.date ?? "—"} />
+        <Field label="Qeydiyyat tarixi" value={item.date ?? "—"} />
       </div>
     );
 
@@ -123,7 +141,7 @@ const PanelContent = ({ item, category }) => {
           : "🟢 Normal vəziyyətdədir";
     return (
       <div className={styles.panelFields}>
-        <Field icon="🗑️" label="Doluluq" value={`${pct}%`} />
+        <Field icon="🗑️" label="Doluluq faizi" value={`${pct}%`} />
         <div className={styles.progressBg}>
           <div
             className={styles.progressFill}
@@ -139,7 +157,7 @@ const PanelContent = ({ item, category }) => {
   if (category === "permits")
     return (
       <div className={styles.panelFields}>
-        <Field label="Növ" value={item.type ?? "Tikinti"} />
+        <Field icon="🏗️" label="Növ" value={item.type ?? "Tikinti"} />
         <Field
           label="Status"
           value={<Badge value={item.status} colorMap={STATUS_COLORS} />}
@@ -154,7 +172,7 @@ const PanelContent = ({ item, category }) => {
                 : "Müraciət rədd edilmişdir"
           }
         />
-        <Field label="Tarix" value={item.date ?? "—"} />
+        <Field label="Müraciət tarixi" value={item.date ?? "—"} />
       </div>
     );
 
@@ -162,11 +180,11 @@ const PanelContent = ({ item, category }) => {
     return (
       <div className={styles.panelFields}>
         <Field
-          label="Şiddət "
+          label="Şiddət"
           value={<Badge value={item.severity} colorMap={SEVERITY_COLORS} />}
         />
         <Field
-          label="Vəziyyət "
+          label="Vəziyyət"
           value={
             item.severity === "Yüksək"
               ? "Yol bağlıdır, alternativ marşrut tövsiyə olunur"
@@ -175,7 +193,7 @@ const PanelContent = ({ item, category }) => {
                 : "Kiçik hadisə, trafik normallaşır"
           }
         />
-        <Field label="Tarix " value={item.date ?? "—"} />
+        <Field label="Hadisə tarixi" value={item.date ?? "—"} />
       </div>
     );
 
@@ -184,10 +202,19 @@ const PanelContent = ({ item, category }) => {
 
 const PANEL_WIDTH = 280;
 
-const MapComponent = () => {
+const MapComponent = ({ onMapReady }) => {
   const mapRef = useRef(null);
   const viewRef = useRef(null);
+  const layersRef = useRef({});
+
   const [selected, setSelected] = useState(null);
+  const [visibleLayers, setVisibleLayers] = useState({
+    complaints: true,
+    streetLights: true,
+    wastePoints: true,
+    permits: true,
+    trafficIncidents: true,
+  });
 
   useEffect(() => {
     const initMap = async () => {
@@ -206,6 +233,14 @@ const MapComponent = () => {
       const wasteLayer = new GraphicsLayer({ title: "Tullantı" });
       const permitsLayer = new GraphicsLayer({ title: "Tikinti İcazələri" });
       const trafficLayer = new GraphicsLayer({ title: "NQ Hadisələri" });
+
+      layersRef.current = {
+        complaints: complaintsLayer,
+        streetLights: streetLightsLayer,
+        wastePoints: wasteLayer,
+        permits: permitsLayer,
+        trafficIncidents: trafficLayer,
+      };
 
       const addMarkers = (layer, dataArr, iconUrl, category) => {
         dataArr.forEach((item) => {
@@ -265,6 +300,12 @@ const MapComponent = () => {
       });
       viewRef.current = view;
 
+      view.when(() => {
+        setTimeout(() => {
+          if (onMapReady) onMapReady();
+        }, 2000);
+      });
+
       view.on("click", async (event) => {
         const hit = await view.hitTest(event);
         const result = hit.results.find(
@@ -298,6 +339,19 @@ const MapComponent = () => {
       viewRef.current?.destroy();
     };
   }, []);
+
+  const toggleLayer = (key) => {
+    setVisibleLayers((prev) => {
+      const next = { ...prev, [key]: !prev[key] };
+      if (layersRef.current[key]) {
+        layersRef.current[key].visible = next[key];
+      }
+      if (selected?.category === key && next[key] === false) {
+        setSelected(null);
+      }
+      return next;
+    });
+  };
 
   const meta = selected ? CATEGORY_META[selected.category] : null;
 
@@ -335,9 +389,32 @@ const MapComponent = () => {
 
           <PanelContent item={selected.item} category={selected.category} />
 
-          <div className={styles.arrow} style={{ borderTopColor: "#fff" }} />
+          <div className={styles.arrow} />
         </div>
       )}
+
+      <div className={styles.layerControl}>
+        {LAYER_CONFIG.map(({ key, label, icon, color }) => {
+          const isActive = visibleLayers[key];
+          return (
+            <button
+              key={key}
+              className={`${styles.layerBtn} ${isActive ? styles.layerBtnActive : styles.layerBtnInactive}`}
+              style={
+                isActive ? { borderColor: color, background: `${color}15` } : {}
+              }
+              onClick={() => toggleLayer(key)}
+            >
+              <span className={styles.layerBtnIcon}>{icon}</span>
+              <span className={styles.layerBtnLabel}>{label}</span>
+              <span
+                className={styles.layerBtnDot}
+                style={{ background: isActive ? color : "#d1d5db" }}
+              />
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };
