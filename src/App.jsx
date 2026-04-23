@@ -33,6 +33,26 @@ const LoadingScreen = () => (
   </div>
 );
 
+const NonMapRoutes = ({ onReady }) => {
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      onReady();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/analytics" element={<Analytics />} />
+      <Route path="/roadissues" element={<RoadIssues />} />
+      <Route path="/streetlight" element={<StreetLight />} />
+      <Route path="/wastecollections" element={<WasteCollections />} />
+      <Route path="/constructionpermits" element={<ConstructionPermits />} />
+      <Route path="/trafficincidents" element={<TrafficIncidents />} />
+    </Routes>
+  );
+};
 const App = () => {
   const [loading, setLoading] = useState(true);
 
@@ -46,16 +66,10 @@ const App = () => {
             path="/"
             element={<Map onMapReady={() => setLoading(false)} />}
           />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/roadissues" element={<RoadIssues />} />
-          <Route path="/streetlight" element={<StreetLight />} />
-          <Route path="/wastecollections" element={<WasteCollections />} />
           <Route
-            path="/constructionpermits"
-            element={<ConstructionPermits />}
+            path="*"
+            element={<NonMapRoutes onReady={() => setLoading(false)} />}
           />
-          <Route path="/trafficincidents" element={<TrafficIncidents />} />
         </Routes>
       </div>
     </div>

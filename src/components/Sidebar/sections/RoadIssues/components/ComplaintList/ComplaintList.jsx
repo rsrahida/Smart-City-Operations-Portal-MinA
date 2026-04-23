@@ -11,6 +11,7 @@ const ComplaintList = ({
   selected,
   onSelect,
   onDelete,
+  onEdit,
 }) => {
   return (
     <div className={styles.listPanel}>
@@ -37,6 +38,7 @@ const ComplaintList = ({
               isSelected={selected?.id === item.id}
               onSelect={() => onSelect(item)}
               onDelete={item.isCustom ? () => onDelete(item.id) : null}
+              onEdit={item.isCustom ? () => onEdit(item) : null}
             />
           ))
         )}

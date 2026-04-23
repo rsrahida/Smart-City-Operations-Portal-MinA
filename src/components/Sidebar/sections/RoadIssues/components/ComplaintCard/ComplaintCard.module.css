@@ -6,7 +6,7 @@
   margin-bottom: 6px;
   transition: all 0.2s;
   background: #fffbf5;
-  width: 825px;
+  width: 66.9%;
 }
 
 .card:hover {
@@ -61,6 +61,25 @@
 .deleteBtn:hover {
   color: #ef4444;
   background: #fee2e2;
+}
+
+.editBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4aaa02;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 6px;
+  transition:
+    color 0.15s,
+    background 0.15s;
+  flex-shrink: 0;
+}
+
+.editBtn:hover {
+  color: #4aaa02;
+  background: #4baa0257;
 }
 
 .meta {

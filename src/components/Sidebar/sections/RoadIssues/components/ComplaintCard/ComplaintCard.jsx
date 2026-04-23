@@ -7,7 +7,7 @@ const STATUS = {
   "Həll edildi": { bg: "#f0fdf4", text: "#16a34a", dot: "#22c55e" },
 };
 
-const ComplaintCard = ({ item, isSelected, onSelect, onDelete }) => {
+const ComplaintCard = ({ item, isSelected, onSelect, onDelete, onEdit }) => {
   const s = STATUS[item.status] ?? {
     bg: "#f3f4f6",
     text: "#374151",
@@ -22,6 +22,17 @@ const ComplaintCard = ({ item, isSelected, onSelect, onDelete }) => {
       <div className={styles.top}>
         <div className={styles.dot} style={{ background: s.dot }} />
         <span className={styles.title}>Problem : {item.title}</span>
+        {onEdit && (
+          <button
+            className={styles.editBtn}
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit();
+            }}
+          >
+            <i className="fa-regular fa-pen-to-square"></i>
+          </button>
+        )}
         {item.isCustom && (
           <button
             className={styles.deleteBtn}

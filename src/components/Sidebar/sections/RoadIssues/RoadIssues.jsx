@@ -3,6 +3,7 @@ import styles from "./RoadIssues.module.css";
 import ComplaintList from "./components/ComplaintList/ComplaintList";
 import MiniMap from "./components/MiniMap/MiniMap";
 import AddComplaintModal from "./components/AddComplaintModal/AddComplaintModal";
+import ComplainEditModal from "./components/ComplainEditModal/ComplainEditModal";
 
 const STORAGE_KEY = "roadIssues_custom";
 
@@ -14,6 +15,7 @@ const RoadIssues = () => {
   const [selected, setSelected] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [filter, setFilter] = useState("Hamısı");
+  const [editItem, setEditItem] = useState(null);
 
   useEffect(() => {
     fetch("/mockData.json")
@@ -32,8 +34,6 @@ const RoadIssues = () => {
     const item = {
       ...newItem,
       id: Date.now(),
-      lat: 40.4093 + (Math.random() - 0.5) * 0.05,
-      lng: 49.8671 + (Math.random() - 0.5) * 0.05,
       date: new Date().toLocaleDateString("az-AZ"),
       isCustom: true,
     };
@@ -49,6 +49,15 @@ const RoadIssues = () => {
     setCustomData(updated);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     if (selected?.id === id) setSelected(null);
+  };
+
+  const updateComplaint = (id, updatedData) => {
+    const updated = customData.map((c) =>
+      c.id == id ? { ...c, ...updatedData } : c,
+    );
+    setCustomData(updated);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    setEditItem(null);
   };
 
   return (
@@ -78,6 +87,7 @@ const RoadIssues = () => {
           selected={selected}
           onSelect={setSelected}
           onDelete={deleteComplaint}
+          onEdit={setEditItem}
         />
         <MiniMap
           complaints={allComplaints}
@@ -90,6 +100,13 @@ const RoadIssues = () => {
         <AddComplaintModal
           onClose={() => setModalOpen(false)}
           onAdd={addComplaint}
+        />
+      )}
+      {editItem && (
+        <ComplainEditModal
+          item={editItem}
+          onClose={() => setEditItem(null)}
+          onSave={updateComplaint}
         />
       )}
     </div>
