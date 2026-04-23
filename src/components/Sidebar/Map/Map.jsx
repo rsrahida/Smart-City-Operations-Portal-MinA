@@ -220,13 +220,13 @@ const MapComponent = ({ onMapReady }) => {
     const initMap = async () => {
       const res = await fetch("/mockData.json");
       const data = await res.json();
-      const {
-        complaints,
-        streetLights,
-        wastePoints,
-        permits,
-        trafficIncidents,
-      } = data;
+
+      const customComplaints = JSON.parse(
+        localStorage.getItem("roadIssues_custom") || "[]",
+      );
+      const allComplaints = [...data.complaints, ...customComplaints];
+
+      const { streetLights, wastePoints, permits, trafficIncidents } = data;
 
       const complaintsLayer = new GraphicsLayer({ title: "Şikayətlər" });
       const streetLightsLayer = new GraphicsLayer({ title: "Küçə İşıqları" });
@@ -264,7 +264,12 @@ const MapComponent = ({ onMapReady }) => {
         });
       };
 
-      addMarkers(complaintsLayer, complaints, ICONS.complaints, "complaints");
+      addMarkers(
+        complaintsLayer,
+        allComplaints,
+        ICONS.complaints,
+        "complaints",
+      );
       addMarkers(
         streetLightsLayer,
         streetLights,
@@ -335,8 +340,45 @@ const MapComponent = ({ onMapReady }) => {
     };
 
     initMap();
+
+    const handleStorage = () => {
+      if (!layersRef.current.complaints) return;
+      const custom = JSON.parse(
+        localStorage.getItem("roadIssues_custom") || "[]",
+      );
+      const layer = layersRef.current.complaints;
+
+      fetch("/mockData.json")
+        .then((r) => r.json())
+        .then((data) => {
+          layer.removeAll();
+          const all = [...data.complaints, ...custom];
+          all.forEach((item) => {
+            layer.add(
+              new Graphic({
+                geometry: {
+                  type: "point",
+                  longitude: item.lng,
+                  latitude: item.lat,
+                },
+                symbol: {
+                  type: "picture-marker",
+                  url: ICONS.complaints,
+                  width: "32px",
+                  height: "38px",
+                },
+                attributes: { ...item, _category: "complaints" },
+              }),
+            );
+          });
+        });
+    };
+
+    window.addEventListener("storage", handleStorage);
+
     return () => {
       viewRef.current?.destroy();
+      window.removeEventListener("storage", handleStorage);
     };
   }, []);
 
