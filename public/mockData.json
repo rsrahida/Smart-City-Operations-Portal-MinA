@@ -47,39 +47,61 @@
     }
   ],
   "streetLights": [
-    {
-      "id": 1,
-      "lat": 40.3695,
-      "lng": 49.8295,
-      "title": "Füzuli küçəsi - işıq problemi",
-      "status": "Aktiv",
-      "date": "19.04.2026"
-    },
-    {
-      "id": 2,
-      "lat": 40.3812,
-      "lng": 49.8712,
-      "title": "Neftçilər prospekti - işıq problemi",
-      "status": "Aktiv",
-      "date": "17.04.2026"
-    },
-    {
-      "id": 3,
-      "lat": 40.438,
-      "lng": 49.958,
-      "title": "Hüsü Hacıyev - işıq problemi",
-      "status": "Həll edildi",
-      "date": "12.04.2026"
-    },
-    {
-      "id": 4,
-      "lat": 40.412,
-      "lng": 49.845,
-      "title": "Tbilisi prospekti - işıq problemi",
-      "status": "Aktiv",
-      "date": "20.04.2026"
-    }
-  ],
+  {
+    "id": 1,
+    "lat": 40.3695,
+    "lng": 49.8295,
+    "title": "Füzuli küçəsi",
+    "rayon": "Nəsimi",
+    "status": "İşləyir",
+    "date": "19.04.2026"
+  },
+  {
+    "id": 2,
+    "lat": 40.3812,
+    "lng": 49.8712,
+    "title": "Neftçilər prospekti",
+    "rayon": "Nəsimi",
+    "status": "Nasaz",
+    "date": "17.04.2026"
+  },
+  {
+    "id": 3,
+    "lat": 40.438,
+    "lng": 49.958,
+    "title": "Hüsü Hacıyev küçəsi",
+    "rayon": "Xətai",
+    "status": "Sönük",
+    "date": "12.04.2026"
+  },
+  {
+    "id": 4,
+    "lat": 40.412,
+    "lng": 49.845,
+    "title": "Tbilisi prospekti",
+    "rayon": "Nərimanov",
+    "status": "İşləyir",
+    "date": "20.04.2026"
+  },
+  {
+    "id": 5,
+    "lat": 40.392,
+    "lng": 49.878,
+    "title": "Nizami küçəsi",
+    "rayon": "Nəsimi",
+    "status": "Sönük",
+    "date": "18.04.2026"
+  },
+  {
+    "id": 6,
+    "lat": 40.402,
+    "lng": 49.921,
+    "title": "İstiqlaliyyət küçəsi",
+    "rayon": "Səbail",
+    "status": "Nasaz",
+    "date": "16.04.2026"
+  }
+],
   "wastePoints": [
     {
       "id": 1,

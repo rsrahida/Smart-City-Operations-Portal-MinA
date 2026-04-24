@@ -202,10 +202,37 @@ const PanelContent = ({ item, category }) => {
 
 const PANEL_WIDTH = 280;
 
+const refreshStreetLightsLayer = (layer, mockLights) => {
+  const custom = JSON.parse(
+    localStorage.getItem("streetLights_custom") || "[]",
+  );
+  const all = [...mockLights, ...custom];
+  layer.removeAll();
+  all.forEach((item) => {
+    layer.add(
+      new Graphic({
+        geometry: {
+          type: "point",
+          longitude: item.lng,
+          latitude: item.lat,
+        },
+        symbol: {
+          type: "picture-marker",
+          url: ICONS.streetLights,
+          width: "32px",
+          height: "38px",
+        },
+        attributes: { ...item, _category: "streetLights" },
+      }),
+    );
+  });
+};
+
 const MapComponent = ({ onMapReady }) => {
   const mapRef = useRef(null);
   const viewRef = useRef(null);
   const layersRef = useRef({});
+  const mockStreetLightsRef = useRef([]);
 
   const [selected, setSelected] = useState(null);
   const [visibleLayers, setVisibleLayers] = useState({
@@ -226,7 +253,13 @@ const MapComponent = ({ onMapReady }) => {
       );
       const allComplaints = [...data.complaints, ...customComplaints];
 
-      const { streetLights, wastePoints, permits, trafficIncidents } = data;
+      const customStreetLights = JSON.parse(
+        localStorage.getItem("streetLights_custom") || "[]",
+      );
+      const allStreetLights = [...data.streetLights, ...customStreetLights];
+      mockStreetLightsRef.current = data.streetLights;
+
+      const { wastePoints, permits, trafficIncidents } = data;
 
       const complaintsLayer = new GraphicsLayer({ title: "Şikayətlər" });
       const streetLightsLayer = new GraphicsLayer({ title: "Küçə İşıqları" });
@@ -270,9 +303,10 @@ const MapComponent = ({ onMapReady }) => {
         ICONS.complaints,
         "complaints",
       );
+
       addMarkers(
         streetLightsLayer,
-        streetLights,
+        allStreetLights,
         ICONS.streetLights,
         "streetLights",
       );
@@ -374,11 +408,22 @@ const MapComponent = ({ onMapReady }) => {
         });
     };
 
+    const handleStreetLightStorage = () => {
+      if (!layersRef.current.streetLights) return;
+      refreshStreetLightsLayer(
+        layersRef.current.streetLights,
+        mockStreetLightsRef.current,
+      );
+    };
+
     window.addEventListener("storage", handleStorage);
+
+    window.addEventListener("storage", handleStreetLightStorage);
 
     return () => {
       viewRef.current?.destroy();
       window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("storage", handleStreetLightStorage);
     };
   }, []);
 

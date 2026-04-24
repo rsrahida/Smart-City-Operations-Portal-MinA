@@ -42,3 +42,12 @@
   border: 2px solid #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
+
+.legendBuffer {
+  width: 18px;
+  height: 11px;
+  border-radius: 3px;
+  border: 2px dashed rgba(180, 20, 20, 0.9);
+  background: rgba(30, 10, 10, 0.45);
+  flex-shrink: 0;
+}
