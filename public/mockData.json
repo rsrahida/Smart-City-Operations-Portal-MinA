@@ -47,61 +47,61 @@
     }
   ],
   "streetLights": [
-  {
-    "id": 1,
-    "lat": 40.3695,
-    "lng": 49.8295,
-    "title": "Füzuli küçəsi",
-    "rayon": "Nəsimi",
-    "status": "İşləyir",
-    "date": "19.04.2026"
-  },
-  {
-    "id": 2,
-    "lat": 40.3812,
-    "lng": 49.8712,
-    "title": "Neftçilər prospekti",
-    "rayon": "Nəsimi",
-    "status": "Nasaz",
-    "date": "17.04.2026"
-  },
-  {
-    "id": 3,
-    "lat": 40.438,
-    "lng": 49.958,
-    "title": "Hüsü Hacıyev küçəsi",
-    "rayon": "Xətai",
-    "status": "Sönük",
-    "date": "12.04.2026"
-  },
-  {
-    "id": 4,
-    "lat": 40.412,
-    "lng": 49.845,
-    "title": "Tbilisi prospekti",
-    "rayon": "Nərimanov",
-    "status": "İşləyir",
-    "date": "20.04.2026"
-  },
-  {
-    "id": 5,
-    "lat": 40.392,
-    "lng": 49.878,
-    "title": "Nizami küçəsi",
-    "rayon": "Nəsimi",
-    "status": "Sönük",
-    "date": "18.04.2026"
-  },
-  {
-    "id": 6,
-    "lat": 40.402,
-    "lng": 49.921,
-    "title": "İstiqlaliyyət küçəsi",
-    "rayon": "Səbail",
-    "status": "Nasaz",
-    "date": "16.04.2026"
-  }
-],
+    {
+      "id": 1,
+      "lat": 40.3695,
+      "lng": 49.8295,
+      "title": "Füzuli küçəsi",
+      "rayon": "Nəsimi",
+      "status": "İşləyir",
+      "date": "19.04.2026"
+    },
+    {
+      "id": 2,
+      "lat": 40.3812,
+      "lng": 49.8712,
+      "title": "Neftçilər prospekti",
+      "rayon": "Nəsimi",
+      "status": "Nasaz",
+      "date": "17.04.2026"
+    },
+    {
+      "id": 3,
+      "lat": 40.438,
+      "lng": 49.958,
+      "title": "Hüsü Hacıyev küçəsi",
+      "rayon": "Xətai",
+      "status": "Sönük",
+      "date": "12.04.2026"
+    },
+    {
+      "id": 4,
+      "lat": 40.412,
+      "lng": 49.845,
+      "title": "Tbilisi prospekti",
+      "rayon": "Nərimanov",
+      "status": "İşləyir",
+      "date": "20.04.2026"
+    },
+    {
+      "id": 5,
+      "lat": 40.392,
+      "lng": 49.878,
+      "title": "Nizami küçəsi",
+      "rayon": "Nəsimi",
+      "status": "Sönük",
+      "date": "18.04.2026"
+    },
+    {
+      "id": 6,
+      "lat": 40.402,
+      "lng": 49.921,
+      "title": "İstiqlaliyyət küçəsi",
+      "rayon": "Səbail",
+      "status": "Nasaz",
+      "date": "16.04.2026"
+    }
+  ],
   "wastePoints": [
     {
       "id": 1,
@@ -109,7 +109,11 @@
       "lng": 49.852,
       "title": "Konteyner-1 — Nəsimi",
       "dolulug": 45,
-      "date": "22.04.2026"
+      "status": "Normal",
+      "növ": "Ümumi",
+      "rayon": "Nəsimi",
+      "toplamaVaxti": "Hər Çərşənbə 09:00",
+      "date": "21.04.2026"
     },
     {
       "id": 2,
@@ -117,15 +121,23 @@
       "lng": 49.975,
       "title": "Konteyner-2 — Xətai",
       "dolulug": 78,
-      "date": "22.04.2026"
+      "status": "Kritik",
+      "növ": "Plastik",
+      "rayon": "Xətai",
+      "toplamaVaxti": "Hər Cümə 10:00",
+      "date": "18.04.2026"
     },
     {
       "id": 3,
-      "lat": 40.448,
-      "lng": 49.887,
+      "lat": 40.4521,
+      "lng": 49.9187,
       "title": "Konteyner-3 — Sabunçu",
       "dolulug": 92,
-      "date": "22.04.2026"
+      "status": "Kritik",
+      "növ": "Üzvi",
+      "rayon": "Sabunçu",
+      "toplamaVaxti": "Hər Bazar ertəsi 08:00",
+      "date": "14.04.2026"
     },
     {
       "id": 4,
@@ -133,7 +145,11 @@
       "lng": 49.822,
       "title": "Konteyner-4 — Yasamal",
       "dolulug": 20,
-      "date": "22.04.2026"
+      "status": "Boş",
+      "növ": "Kağız",
+      "rayon": "Yasamal",
+      "toplamaVaxti": "Hər Şənbə 11:00",
+      "date": "23.04.2026"
     },
     {
       "id": 5,
@@ -141,7 +157,11 @@
       "lng": 49.942,
       "title": "Konteyner-5 — Nərimanov",
       "dolulug": 65,
-      "date": "22.04.2026"
+      "status": "Normal",
+      "növ": "Plastik",
+      "rayon": "Nərimanov",
+      "toplamaVaxti": "Hər Cümə axşamı 09:30",
+      "date": "17.04.2026"
     }
   ],
   "permits": [

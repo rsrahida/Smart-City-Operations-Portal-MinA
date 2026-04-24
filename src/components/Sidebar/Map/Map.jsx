@@ -228,11 +228,38 @@ const refreshStreetLightsLayer = (layer, mockLights) => {
   });
 };
 
+const refreshWasteLayer = (layer, mockWaste) => {
+  const custom = JSON.parse(
+    localStorage.getItem("wasteCollections_custom") || "[]",
+  );
+  const all = [...mockWaste, ...custom];
+  layer.removeAll();
+  all.forEach((item) => {
+    layer.add(
+      new Graphic({
+        geometry: {
+          type: "point",
+          longitude: item.lng,
+          latitude: item.lat,
+        },
+        symbol: {
+          type: "picture-marker",
+          url: ICONS.wastePoints,
+          width: "32px",
+          height: "38px",
+        },
+        attributes: { ...item, _category: "wastePoints" },
+      }),
+    );
+  });
+};
+
 const MapComponent = ({ onMapReady }) => {
   const mapRef = useRef(null);
   const viewRef = useRef(null);
   const layersRef = useRef({});
   const mockStreetLightsRef = useRef([]);
+  const mockWasteRef = useRef([]);
 
   const [selected, setSelected] = useState(null);
   const [visibleLayers, setVisibleLayers] = useState({
@@ -259,7 +286,13 @@ const MapComponent = ({ onMapReady }) => {
       const allStreetLights = [...data.streetLights, ...customStreetLights];
       mockStreetLightsRef.current = data.streetLights;
 
-      const { wastePoints, permits, trafficIncidents } = data;
+      const customWaste = JSON.parse(
+        localStorage.getItem("wasteCollections_custom") || "[]",
+      );
+      const allWastePoints = [...data.wastePoints, ...customWaste];
+      mockWasteRef.current = data.wastePoints;
+
+      const { permits, trafficIncidents } = data;
 
       const complaintsLayer = new GraphicsLayer({ title: "Şikayətlər" });
       const streetLightsLayer = new GraphicsLayer({ title: "Küçə İşıqları" });
@@ -303,14 +336,13 @@ const MapComponent = ({ onMapReady }) => {
         ICONS.complaints,
         "complaints",
       );
-
       addMarkers(
         streetLightsLayer,
         allStreetLights,
         ICONS.streetLights,
         "streetLights",
       );
-      addMarkers(wasteLayer, wastePoints, ICONS.wastePoints, "wastePoints");
+      addMarkers(wasteLayer, allWastePoints, ICONS.wastePoints, "wastePoints");
       addMarkers(permitsLayer, permits, ICONS.permits, "permits");
       addMarkers(
         trafficLayer,
@@ -416,14 +448,20 @@ const MapComponent = ({ onMapReady }) => {
       );
     };
 
-    window.addEventListener("storage", handleStorage);
+    const handleWasteStorage = () => {
+      if (!layersRef.current.wastePoints) return;
+      refreshWasteLayer(layersRef.current.wastePoints, mockWasteRef.current);
+    };
 
+    window.addEventListener("storage", handleStorage);
     window.addEventListener("storage", handleStreetLightStorage);
+    window.addEventListener("storage", handleWasteStorage);
 
     return () => {
       viewRef.current?.destroy();
       window.removeEventListener("storage", handleStorage);
       window.removeEventListener("storage", handleStreetLightStorage);
+      window.removeEventListener("storage", handleWasteStorage);
     };
   }, []);
 
