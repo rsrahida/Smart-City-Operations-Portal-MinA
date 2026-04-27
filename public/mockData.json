@@ -198,25 +198,92 @@
       "id": 1,
       "lat": 40.416,
       "lng": 49.868,
-      "title": "Tbilisi prospekti - avtomobil qəzası",
+      "title": "Tbilisi prospekti — avtomobil toqquşması",
       "severity": "Yüksək",
-      "date": "22.04.2026"
+      "type": "Qəza",
+      "status": "Aktiv",
+      "rayon": "Nərimanov",
+      "tesvir": "2 avtomobil toqquşması, yol tam bağlıdır, alternativ marşrutdan istifadə edin.",
+      "date": "27.04.2026",
+      "time": "08:45"
     },
     {
       "id": 2,
       "lat": 40.365,
       "lng": 49.818,
-      "title": "Hüsü Hacıyev - yol bağlıdır",
-      "severity": "Orta",
-      "date": "21.04.2026"
+      "title": "Hüsü Hacıyev küçəsi — zəncirli qəza",
+      "severity": "Yüksək",
+      "type": "Qəza",
+      "status": "Aktiv",
+      "rayon": "Səbail",
+      "tesvir": "3 avtomobil iştirakı ilə zəncirli qəza, xilasedicilər hadisə yerindədir, yol bağlıdır.",
+      "date": "27.04.2026",
+      "time": "07:30"
     },
     {
       "id": 3,
       "lat": 40.389,
       "lng": 49.931,
-      "title": "Füzuli küçəsi - sürüşmə",
+      "title": "Füzuli küçəsi — yan toqquşma",
       "severity": "Aşağı",
-      "date": "20.04.2026"
+      "type": "Qəza",
+      "status": "Rədd edildi",
+      "rayon": "Nəsimi",
+      "tesvir": "2 avtomobil arasında yan toqquşma, zərər minimaldır, yol açılıb.",
+      "date": "26.04.2026",
+      "time": "19:15"
+    },
+    {
+      "id": 4,
+      "lat": 40.4021,
+      "lng": 49.8712,
+      "title": "Neftçilər prospekti — avtobusla toqquşma",
+      "severity": "Orta",
+      "type": "Qəza",
+      "status": "Aktiv",
+      "rayon": "Nəsimi",
+      "tesvir": "Minik avtomobili avtobus ilə toqquşub, yaralılar var, təcili yardım çağrılıb.",
+      "date": "27.04.2026",
+      "time": "09:10"
+    },
+    {
+      "id": 5,
+      "lat": 40.4312,
+      "lng": 49.8934,
+      "title": "Azadlıq prospekti — yük maşını qəzası",
+      "severity": "Yüksək",
+      "type": "Qəza",
+      "status": "Aktiv",
+      "rayon": "Binəqədi",
+      "tesvir": "Ağır yük maşını aşıb, hər iki istiqamət bağlıdır, xilasedicilər hadisə yerindədir.",
+      "date": "27.04.2026",
+      "time": "06:20"
+    },
+    {
+      "id": 6,
+      "lat": 40.3784,
+      "lng": 49.8423,
+      "title": "Rəşid Behbudov küçəsi — arxa toqquşma",
+      "severity": "Aşağı",
+      "type": "Qəza",
+      "status": "Həll edildi",
+      "rayon": "Yasamal",
+      "tesvir": "Arxa toqquşma, hər iki sürücü sağlamdır, avtomobillər yoldan çıxarılıb.",
+      "date": "25.04.2026",
+      "time": "14:30"
+    },
+    {
+      "id": 7,
+      "lat": 40.4089,
+      "lng": 49.9234,
+      "title": "Xaqani küçəsi — pedestrə vurma",
+      "severity": "Yüksək",
+      "type": "Qəza",
+      "status": "Aktiv",
+      "rayon": "Nəsimi",
+      "tesvir": "Avtomobil piyada keçidində pedestrə vurub, yaralı xəstəxanaya aparılıb, iş başlanıb.",
+      "date": "27.04.2026",
+      "time": "05:50"
     }
   ]
 }

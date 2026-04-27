@@ -22,6 +22,11 @@ const NAV_ITEMS = [
     icon: "fa-solid fa-car-burst",
     label: "NQ Hadisələri",
   },
+  {
+    to: "/constructionpermits",
+    icon: "fa-solid fa-helmet-safety",
+    label: "Tikinti İcazələri",
+  },
 ];
 
 const Sidebar = () => {

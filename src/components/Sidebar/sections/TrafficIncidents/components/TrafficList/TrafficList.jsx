@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./WasteList.module.css";
-import WasteCard from "../WasteCard/WasteCard";
+import styles from "./TrafficList.module.css";
+import TrafficCard from "../TrafficCard/TrafficCard";
 
-const FILTERS = ["Hamısı", "Kritik", "Normal", "Boş"];
+const FILTERS = ["Hamısı", "Həll edildi", "Aktiv", "Rədd edildi"];
 
-const WasteList = ({
+const TrafficList = ({
   data,
   filter,
   onFilter,
@@ -28,12 +28,10 @@ const WasteList = ({
       </div>
       <div className={styles.list}>
         {data.length === 0 ? (
-          <div className={styles.empty}>
-            <p></p>
-          </div>
+          <div className={styles.empty}></div>
         ) : (
           data.map((item) => (
-            <WasteCard
+            <TrafficCard
               key={item.id}
               item={item}
               isSelected={selected?.id === item.id}
@@ -48,4 +46,4 @@ const WasteList = ({
   );
 };
 
-export default WasteList;
+export default TrafficList;

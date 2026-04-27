@@ -1,0 +1,87 @@
+.listPanel {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  overflow: hidden;
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  border-bottom: 1.5px solid rgba(249, 115, 22, 0.1);
+}
+
+.filterBtn {
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: 1px solid #52463d29;
+  background: transparent;
+  color: #52463d;
+  cursor: pointer;
+  transition: all 0.18s;
+  flex: 1;
+}
+
+.filterBtn:hover {
+  border-color: #f97316;
+}
+
+.filterActive {
+  background: linear-gradient(135deg, #f97316, #fbbf24);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+}
+
+.countRow {
+  padding: 10px 16px 6px;
+}
+
+.count {
+  font-size: 11px;
+  font-weight: 600;
+  color: #c4b8b0;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 10px 16px;
+}
+
+.list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: rgba(249, 115, 22, 0.2);
+  border-radius: 99px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  gap: 8px;
+  color: #c4b8b0;
+  font-size: 13px;
+}
+
+.empty span {
+  font-size: 36px;
+}

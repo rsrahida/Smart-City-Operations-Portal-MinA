@@ -50,6 +50,7 @@ const NonMapRoutes = ({ onReady }) => {
       <Route path="/wastecollections" element={<WasteCollections />} />
       <Route path="/constructionpermits" element={<ConstructionPermits />} />
       <Route path="/trafficincidents" element={<TrafficIncidents />} />
+      <Route path="/constructionpermits" element={<ConstructionPermits />} />
     </Routes>
   );
 };

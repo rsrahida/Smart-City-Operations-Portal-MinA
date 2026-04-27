@@ -254,12 +254,35 @@ const refreshWasteLayer = (layer, mockWaste) => {
   });
 };
 
+const refreshTrafficLayer = (layer, mockTraffic) => {
+  const custom = JSON.parse(
+    localStorage.getItem("trafficIncidents_custom") || "[]",
+  );
+  const all = [...mockTraffic, ...custom];
+  layer.removeAll();
+  all.forEach((item) => {
+    layer.add(
+      new Graphic({
+        geometry: { type: "point", longitude: item.lng, latitude: item.lat },
+        symbol: {
+          type: "picture-marker",
+          url: ICONS.trafficIncidents,
+          width: "32px",
+          height: "38px",
+        },
+        attributes: { ...item, _category: "trafficIncidents" },
+      }),
+    );
+  });
+};
+
 const MapComponent = ({ onMapReady }) => {
   const mapRef = useRef(null);
   const viewRef = useRef(null);
   const layersRef = useRef({});
   const mockStreetLightsRef = useRef([]);
   const mockWasteRef = useRef([]);
+  const mockTrafficRef = useRef([]);
 
   const [selected, setSelected] = useState(null);
   const [visibleLayers, setVisibleLayers] = useState({
@@ -291,8 +314,13 @@ const MapComponent = ({ onMapReady }) => {
       );
       const allWastePoints = [...data.wastePoints, ...customWaste];
       mockWasteRef.current = data.wastePoints;
+      mockTrafficRef.current = data.trafficIncidents;
 
-      const { permits, trafficIncidents } = data;
+      const { permits } = data;
+      const customTraffic = JSON.parse(
+        localStorage.getItem("trafficIncidents_custom") || "[]",
+      );
+      const allTrafficIncidents = [...data.trafficIncidents, ...customTraffic];
 
       const complaintsLayer = new GraphicsLayer({ title: "Şikayətlər" });
       const streetLightsLayer = new GraphicsLayer({ title: "Küçə İşıqları" });
@@ -346,7 +374,7 @@ const MapComponent = ({ onMapReady }) => {
       addMarkers(permitsLayer, permits, ICONS.permits, "permits");
       addMarkers(
         trafficLayer,
-        trafficIncidents,
+        allTrafficIncidents,
         ICONS.trafficIncidents,
         "trafficIncidents",
       );
@@ -453,15 +481,25 @@ const MapComponent = ({ onMapReady }) => {
       refreshWasteLayer(layersRef.current.wastePoints, mockWasteRef.current);
     };
 
+    const handleTrafficStorage = () => {
+      if (!layersRef.current.trafficIncidents) return;
+      refreshTrafficLayer(
+        layersRef.current.trafficIncidents,
+        mockTrafficRef.current,
+      );
+    };
+
     window.addEventListener("storage", handleStorage);
     window.addEventListener("storage", handleStreetLightStorage);
     window.addEventListener("storage", handleWasteStorage);
+    window.addEventListener("storage", handleTrafficStorage);
 
     return () => {
       viewRef.current?.destroy();
       window.removeEventListener("storage", handleStorage);
       window.removeEventListener("storage", handleStreetLightStorage);
       window.removeEventListener("storage", handleWasteStorage);
+      window.removeEventListener("storage", handleTrafficStorage);
     };
   }, []);
 
