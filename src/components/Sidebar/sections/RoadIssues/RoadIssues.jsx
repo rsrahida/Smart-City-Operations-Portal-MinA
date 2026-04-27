@@ -5,9 +5,27 @@ import MiniMap from "./components/MiniMap/MiniMap";
 import AddComplaintModal from "./components/AddComplaintModal/AddComplaintModal";
 import ComplainEditModal from "./components/ComplainEditModal/ComplainEditModal";
 
+const LoadingScreen = () => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100%",
+      gap: 16,
+      color: "#f97316",
+    }}
+  >
+    <i className="fa-solid fa-road-barrier fa-2x fa-beat" />
+    <span style={{ fontSize: 15, color: "#6b7280" }}>Yüklənir...</span>
+  </div>
+);
+
 const STORAGE_KEY = "roadIssues_custom";
 
 const RoadIssues = () => {
+  const [loading, setLoading] = useState(true);
   const [mockData, setMockData] = useState([]);
   const [customData, setCustomData] = useState(() =>
     JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"),
@@ -20,9 +38,11 @@ const RoadIssues = () => {
   useEffect(() => {
     fetch("/mockData.json")
       .then((r) => r.json())
-      .then((d) => setMockData(d.complaints || []));
+      .then((d) => {
+        setMockData(d.complaints || []);
+        setTimeout(() => setLoading(false), 1000);
+      });
   }, []);
-
   const allComplaints = [...mockData, ...customData];
 
   const filtered =
@@ -59,6 +79,8 @@ const RoadIssues = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setEditItem(null);
   };
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <div className={styles.page}>

@@ -19,7 +19,6 @@
   left: -60px;
   width: 200px;
   height: 200px;
-
   pointer-events: none;
 }
 
@@ -163,7 +162,7 @@
 .navItem:hover {
   background: rgba(255, 255, 255, 0.18);
   color: #fff;
-  transform: translateX(4px);
+  transform: translateX(2px);
 }
 
 .navItem.active {
@@ -195,10 +194,6 @@
     opacity 0.2s,
     transform 0.2s;
   z-index: 999;
-}
-.sidebar.collapsed .navItem:hover::after {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 .navIcon {

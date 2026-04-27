@@ -5,9 +5,27 @@ import LightMap from "./components/LightMap/LightMap";
 import AddLightModal from "./components/AddLightModal/AddLightModal";
 import LightEditModal from "./components/LightEditModal/LightEditModal";
 
+const LoadingScreen = () => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100%",
+      gap: 16,
+      color: "#f97316",
+    }}
+  >
+    <i className="fa-solid fa-lightbulb fa-2x fa-beat" />
+    <span style={{ fontSize: 15, color: "#6b7280" }}>Yüklənir...</span>
+  </div>
+);
+
 const STORAGE_KEY = "streetLights_custom";
 
 const StreetLight = () => {
+  const [loading, setLoading] = useState(true);
   const [mockData, setMockData] = useState([]);
   const [customData, setCustomData] = useState(() =>
     JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"),
@@ -21,6 +39,7 @@ const StreetLight = () => {
     fetch("/mockData.json")
       .then((r) => r.json())
       .then((d) => setMockData(d.streetLights || []));
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
   const allLights = [...mockData, ...customData];
@@ -58,6 +77,8 @@ const StreetLight = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     setEditItem(null);
   };
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <div className={styles.page}>

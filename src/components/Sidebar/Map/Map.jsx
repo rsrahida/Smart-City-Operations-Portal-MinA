@@ -134,7 +134,7 @@ const PanelContent = ({ item, category }) => {
           : "🟢 Normal vəziyyətdədir";
     return (
       <div className={styles.panelFields}>
-        <Field icon="🗑️" label="Doluluq faizi" value={`${pct}%`} />
+        <Field label="Doluluq faizi" value={`${pct}%`} />
         <div className={styles.progressBg}>
           <div
             className={styles.progressFill}

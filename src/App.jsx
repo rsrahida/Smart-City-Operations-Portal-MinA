@@ -16,7 +16,7 @@ const LoadingScreen = () => (
     style={{
       position: "fixed",
       inset: 0,
-      background: "#E6A75C",
+      background: "#CE8A47",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
