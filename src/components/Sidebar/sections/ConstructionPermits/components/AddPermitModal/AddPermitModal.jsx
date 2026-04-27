@@ -214,7 +214,13 @@ const AddPermitModal = ({ onClose, onAdd }) => {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
-          <div className={styles.modalIcon}>🏗️</div>
+          <div className={styles.modalIcon}>
+            {" "}
+            <i
+              className="fa-solid fa-helmet-safety"
+              style={{ color: "white" }}
+            ></i>
+          </div>
           <div>
             <p className={styles.modalSub}>
               Tikinti icazəsi haqqında məlumat daxil edin
@@ -481,11 +487,11 @@ const AddPermitModal = ({ onClose, onAdd }) => {
                     </div>
                   )}
                   {gpsStatus === "done" && (
-                    <div className={styles.coordPreview}>✅ Məkan alındı</div>
+                    <div className={styles.coordPreview}>Məkan alındı</div>
                   )}
                   {gpsStatus === "error" && (
                     <div className={styles.gpsError}>
-                      ❌ Məkan alına bilmədi. Brauzer icazəsini yoxlayın.
+                      Məkan alına bilmədi. Brauzer icazəsini yoxlayın.
                     </div>
                   )}
                 </div>

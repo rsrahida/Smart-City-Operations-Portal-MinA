@@ -150,7 +150,7 @@ const PanelContent = ({ item, category }) => {
   if (category === "permits")
     return (
       <div className={styles.panelFields}>
-        <Field icon="🏗️" label="Növ" value={item.type ?? "Tikinti"} />
+        <Field label="Növ" value={item.type ?? "Tikinti"} />
         <Field
           label="Status"
           value={<Badge value={item.status} colorMap={STATUS_COLORS} />}

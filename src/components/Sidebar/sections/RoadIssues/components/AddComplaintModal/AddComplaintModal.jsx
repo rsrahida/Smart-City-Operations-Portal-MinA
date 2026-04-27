@@ -214,7 +214,12 @@ const AddComplaintModal = ({ onClose, onAdd }) => {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
-          <div className={styles.modalIcon}>🚧</div>
+          <div className={styles.modalIcon}>
+            <i
+              className="fa-solid fa-road-barrier"
+              style={{ color: "white" }}
+            ></i>
+          </div>
           <div>
             <p className={styles.modalSub}>
               Yol problemi haqqında məlumat daxil edin
