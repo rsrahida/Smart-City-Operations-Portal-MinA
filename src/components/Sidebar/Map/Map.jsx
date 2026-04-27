@@ -118,14 +118,7 @@ const PanelContent = ({ item, category }) => {
           label="Status"
           value={<Badge value={item.status} colorMap={STATUS_COLORS} />}
         />
-        <Field
-          label="Problem"
-          value={
-            item.status === "Aktiv"
-              ? "İşıq sönüb, müdaxilə lazımdır"
-              : "Problem həll edilib"
-          }
-        />
+        <Field label="Rayon" value={item.rayon ?? "—"} />
         <Field label="Qeydiyyat tarixi" value={item.date ?? "—"} />
       </div>
     );
@@ -162,16 +155,7 @@ const PanelContent = ({ item, category }) => {
           label="Status"
           value={<Badge value={item.status} colorMap={STATUS_COLORS} />}
         />
-        <Field
-          label="Açıqlama"
-          value={
-            item.status === "Təsdiqləndi"
-              ? "İcazə verilmişdir, tikinti başlaya bilər"
-              : item.status === "Gözləyir"
-                ? "Müraciət baxılır, qərar gözlənilir"
-                : "Müraciət rədd edilmişdir"
-          }
-        />
+        <Field label="Müraciətçi" value={item.muracietci ?? "—"} />
         <Field label="Müraciət tarixi" value={item.date ?? "—"} />
       </div>
     );
@@ -183,16 +167,8 @@ const PanelContent = ({ item, category }) => {
           label="Şiddət"
           value={<Badge value={item.severity} colorMap={SEVERITY_COLORS} />}
         />
-        <Field
-          label="Vəziyyət"
-          value={
-            item.severity === "Yüksək"
-              ? "Yol bağlıdır, alternativ marşrut tövsiyə olunur"
-              : item.severity === "Orta"
-                ? "Trafik yavaşlayıb, diqqətli olun"
-                : "Kiçik hadisə, trafik normallaşır"
-          }
-        />
+        <Field label="Rayon" value={item.rayon ?? "—"} />
+        <Field label="Vaxt" value={item.time ?? "—"} />
         <Field label="Hadisə tarixi" value={item.date ?? "—"} />
       </div>
     );
@@ -202,63 +178,9 @@ const PanelContent = ({ item, category }) => {
 
 const PANEL_WIDTH = 280;
 
-const refreshStreetLightsLayer = (layer, mockLights) => {
-  const custom = JSON.parse(
-    localStorage.getItem("streetLights_custom") || "[]",
-  );
-  const all = [...mockLights, ...custom];
-  layer.removeAll();
-  all.forEach((item) => {
-    layer.add(
-      new Graphic({
-        geometry: {
-          type: "point",
-          longitude: item.lng,
-          latitude: item.lat,
-        },
-        symbol: {
-          type: "picture-marker",
-          url: ICONS.streetLights,
-          width: "32px",
-          height: "38px",
-        },
-        attributes: { ...item, _category: "streetLights" },
-      }),
-    );
-  });
-};
-
-const refreshWasteLayer = (layer, mockWaste) => {
-  const custom = JSON.parse(
-    localStorage.getItem("wasteCollections_custom") || "[]",
-  );
-  const all = [...mockWaste, ...custom];
-  layer.removeAll();
-  all.forEach((item) => {
-    layer.add(
-      new Graphic({
-        geometry: {
-          type: "point",
-          longitude: item.lng,
-          latitude: item.lat,
-        },
-        symbol: {
-          type: "picture-marker",
-          url: ICONS.wastePoints,
-          width: "32px",
-          height: "38px",
-        },
-        attributes: { ...item, _category: "wastePoints" },
-      }),
-    );
-  });
-};
-
-const refreshTrafficLayer = (layer, mockTraffic) => {
-  const custom = JSON.parse(
-    localStorage.getItem("trafficIncidents_custom") || "[]",
-  );
-  const all = [...mockTraffic, ...custom];
+const refreshLayer = (layer, mockData, storageKey, iconUrl, category) => {
+  const custom = JSON.parse(localStorage.getItem(storageKey) || "[]");
+  const all = [...mockData, ...custom];
   layer.removeAll();
   all.forEach((item) => {
     layer.add(
@@ -266,11 +188,11 @@ const refreshTrafficLayer = (layer, mockTraffic) => {
         geometry: { type: "point", longitude: item.lng, latitude: item.lat },
         symbol: {
           type: "picture-marker",
-          url: ICONS.trafficIncidents,
+          url: iconUrl,
           width: "32px",
           height: "38px",
         },
-        attributes: { ...item, _category: "trafficIncidents" },
+        attributes: { ...item, _category: category },
       }),
     );
   });
@@ -280,8 +202,11 @@ const MapComponent = ({ onMapReady }) => {
   const mapRef = useRef(null);
   const viewRef = useRef(null);
   const layersRef = useRef({});
+
+  const mockComplaintsRef = useRef([]);
   const mockStreetLightsRef = useRef([]);
   const mockWasteRef = useRef([]);
+  const mockPermitsRef = useRef([]);
   const mockTrafficRef = useRef([]);
 
   const [selected, setSelected] = useState(null);
@@ -298,29 +223,27 @@ const MapComponent = ({ onMapReady }) => {
       const res = await fetch("/mockData.json");
       const data = await res.json();
 
+      mockComplaintsRef.current = data.complaints || [];
+      mockStreetLightsRef.current = data.streetLights || [];
+      mockWasteRef.current = data.wastePoints || [];
+      mockPermitsRef.current = data.permits || [];
+      mockTrafficRef.current = data.trafficIncidents || [];
+
       const customComplaints = JSON.parse(
         localStorage.getItem("roadIssues_custom") || "[]",
       );
-      const allComplaints = [...data.complaints, ...customComplaints];
-
-      const customStreetLights = JSON.parse(
+      const customLights = JSON.parse(
         localStorage.getItem("streetLights_custom") || "[]",
       );
-      const allStreetLights = [...data.streetLights, ...customStreetLights];
-      mockStreetLightsRef.current = data.streetLights;
-
       const customWaste = JSON.parse(
         localStorage.getItem("wasteCollections_custom") || "[]",
       );
-      const allWastePoints = [...data.wastePoints, ...customWaste];
-      mockWasteRef.current = data.wastePoints;
-      mockTrafficRef.current = data.trafficIncidents;
-
-      const { permits } = data;
+      const customPermits = JSON.parse(
+        localStorage.getItem("constructionPermits_custom") || "[]",
+      );
       const customTraffic = JSON.parse(
         localStorage.getItem("trafficIncidents_custom") || "[]",
       );
-      const allTrafficIncidents = [...data.trafficIncidents, ...customTraffic];
 
       const complaintsLayer = new GraphicsLayer({ title: "Şikayətlər" });
       const streetLightsLayer = new GraphicsLayer({ title: "Küçə İşıqları" });
@@ -336,8 +259,8 @@ const MapComponent = ({ onMapReady }) => {
         trafficIncidents: trafficLayer,
       };
 
-      const addMarkers = (layer, dataArr, iconUrl, category) => {
-        dataArr.forEach((item) => {
+      const addMarkers = (layer, arr, iconUrl, category) => {
+        arr.forEach((item) => {
           layer.add(
             new Graphic({
               geometry: {
@@ -352,7 +275,6 @@ const MapComponent = ({ onMapReady }) => {
                 height: "38px",
               },
               attributes: { ...item, _category: category },
-              popupTemplate: null,
             }),
           );
         });
@@ -360,21 +282,31 @@ const MapComponent = ({ onMapReady }) => {
 
       addMarkers(
         complaintsLayer,
-        allComplaints,
+        [...mockComplaintsRef.current, ...customComplaints],
         ICONS.complaints,
         "complaints",
       );
       addMarkers(
         streetLightsLayer,
-        allStreetLights,
+        [...mockStreetLightsRef.current, ...customLights],
         ICONS.streetLights,
         "streetLights",
       );
-      addMarkers(wasteLayer, allWastePoints, ICONS.wastePoints, "wastePoints");
-      addMarkers(permitsLayer, permits, ICONS.permits, "permits");
+      addMarkers(
+        wasteLayer,
+        [...mockWasteRef.current, ...customWaste],
+        ICONS.wastePoints,
+        "wastePoints",
+      );
+      addMarkers(
+        permitsLayer,
+        [...mockPermitsRef.current, ...customPermits],
+        ICONS.permits,
+        "permits",
+      );
       addMarkers(
         trafficLayer,
-        allTrafficIncidents,
+        [...mockTrafficRef.current, ...customTraffic],
         ICONS.trafficIncidents,
         "trafficIncidents",
       );
@@ -415,7 +347,6 @@ const MapComponent = ({ onMapReady }) => {
           const attrs = result.graphic.attributes;
           const screen = view.toScreen(result.graphic.geometry);
           const mapWidth = mapRef.current?.offsetWidth ?? window.innerWidth;
-
           const clampedX = Math.min(
             Math.max(screen.x - PANEL_WIDTH / 2, 8),
             mapWidth - PANEL_WIDTH - 8,
@@ -435,71 +366,60 @@ const MapComponent = ({ onMapReady }) => {
 
     initMap();
 
-    const handleStorage = () => {
-      if (!layersRef.current.complaints) return;
-      const custom = JSON.parse(
-        localStorage.getItem("roadIssues_custom") || "[]",
+    const onComplaintsStorage = () =>
+      refreshLayer(
+        layersRef.current.complaints,
+        mockComplaintsRef.current,
+        "roadIssues_custom",
+        ICONS.complaints,
+        "complaints",
       );
-      const layer = layersRef.current.complaints;
-
-      fetch("/mockData.json")
-        .then((r) => r.json())
-        .then((data) => {
-          layer.removeAll();
-          const all = [...data.complaints, ...custom];
-          all.forEach((item) => {
-            layer.add(
-              new Graphic({
-                geometry: {
-                  type: "point",
-                  longitude: item.lng,
-                  latitude: item.lat,
-                },
-                symbol: {
-                  type: "picture-marker",
-                  url: ICONS.complaints,
-                  width: "32px",
-                  height: "38px",
-                },
-                attributes: { ...item, _category: "complaints" },
-              }),
-            );
-          });
-        });
-    };
-
-    const handleStreetLightStorage = () => {
-      if (!layersRef.current.streetLights) return;
-      refreshStreetLightsLayer(
+    const onLightsStorage = () =>
+      refreshLayer(
         layersRef.current.streetLights,
         mockStreetLightsRef.current,
+        "streetLights_custom",
+        ICONS.streetLights,
+        "streetLights",
       );
-    };
-
-    const handleWasteStorage = () => {
-      if (!layersRef.current.wastePoints) return;
-      refreshWasteLayer(layersRef.current.wastePoints, mockWasteRef.current);
-    };
-
-    const handleTrafficStorage = () => {
-      if (!layersRef.current.trafficIncidents) return;
-      refreshTrafficLayer(
+    const onWasteStorage = () =>
+      refreshLayer(
+        layersRef.current.wastePoints,
+        mockWasteRef.current,
+        "wasteCollections_custom",
+        ICONS.wastePoints,
+        "wastePoints",
+      );
+    const onPermitsStorage = () =>
+      refreshLayer(
+        layersRef.current.permits,
+        mockPermitsRef.current,
+        "constructionPermits_custom",
+        ICONS.permits,
+        "permits",
+      );
+    const onTrafficStorage = () =>
+      refreshLayer(
         layersRef.current.trafficIncidents,
         mockTrafficRef.current,
+        "trafficIncidents_custom",
+        ICONS.trafficIncidents,
+        "trafficIncidents",
       );
-    };
 
-    window.addEventListener("storage", handleStorage);
-    window.addEventListener("storage", handleStreetLightStorage);
-    window.addEventListener("storage", handleWasteStorage);
-    window.addEventListener("storage", handleTrafficStorage);
+    window.addEventListener("storage", onComplaintsStorage);
+    window.addEventListener("storage", onLightsStorage);
+    window.addEventListener("storage", onWasteStorage);
+    window.addEventListener("storage", onPermitsStorage);
+    window.addEventListener("storage", onTrafficStorage);
 
     return () => {
       viewRef.current?.destroy();
-      window.removeEventListener("storage", handleStorage);
-      window.removeEventListener("storage", handleStreetLightStorage);
-      window.removeEventListener("storage", handleWasteStorage);
-      window.removeEventListener("storage", handleTrafficStorage);
+      window.removeEventListener("storage", onComplaintsStorage);
+      window.removeEventListener("storage", onLightsStorage);
+      window.removeEventListener("storage", onWasteStorage);
+      window.removeEventListener("storage", onPermitsStorage);
+      window.removeEventListener("storage", onTrafficStorage);
     };
   }, []);
 
@@ -551,7 +471,6 @@ const MapComponent = ({ onMapReady }) => {
           </div>
 
           <PanelContent item={selected.item} category={selected.category} />
-
           <div className={styles.arrow} />
         </div>
       )}

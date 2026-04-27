@@ -164,35 +164,6 @@
       "date": "17.04.2026"
     }
   ],
-  "permits": [
-    {
-      "id": 1,
-      "lat": 40.374,
-      "lng": 49.842,
-      "title": "Neftçilər prospekti — Yaşayış",
-      "status": "Təsdiqləndi",
-      "type": "Yaşayış",
-      "date": "05.04.2026"
-    },
-    {
-      "id": 2,
-      "lat": 40.425,
-      "lng": 49.989,
-      "title": "Xaqani küçəsi — Kommersiya",
-      "status": "Gözləyir",
-      "type": "Kommersiya",
-      "date": "14.04.2026"
-    },
-    {
-      "id": 3,
-      "lat": 40.462,
-      "lng": 49.915,
-      "title": "Azadlıq prospekti — İnfra",
-      "status": "Rədd edildi",
-      "type": "İnfrastruktur",
-      "date": "08.04.2026"
-    }
-  ],
   "trafficIncidents": [
     {
       "id": 1,
@@ -284,6 +255,120 @@
       "tesvir": "Avtomobil piyada keçidində pedestrə vurub, yaralı xəstəxanaya aparılıb, iş başlanıb.",
       "date": "27.04.2026",
       "time": "05:50"
+    }
+  ],
+  "permits": [
+    {
+      "id": 1,
+      "lat": 40.374,
+      "lng": 49.842,
+      "title": "Neftçilər prospekti — Yaşayış binası",
+      "status": "Təsdiqləndi",
+      "type": "Yaşayış",
+      "rayon": "Nəsimi",
+      "unvan": "Neftçilər prospekti 12",
+      "muracietci": "Azinşaat MMC",
+      "mertebe": 16,
+      "sahe": 4200,
+      "baslangic": "01.03.2026",
+      "bitis": "01.03.2028",
+      "date": "05.04.2026"
+    },
+    {
+      "id": 2,
+      "lat": 40.425,
+      "lng": 49.989,
+      "title": "Xaqani küçəsi — Kommersiya mərkəzi",
+      "status": "Gözləyir",
+      "type": "Kommersiya",
+      "rayon": "Nəsimi",
+      "unvan": "Xaqani küçəsi 45",
+      "muracietci": "Baku Mall Group",
+      "mertebe": 8,
+      "sahe": 12000,
+      "baslangic": "15.05.2026",
+      "bitis": "15.05.2028",
+      "date": "14.04.2026"
+    },
+    {
+      "id": 3,
+      "lat": 40.462,
+      "lng": 49.915,
+      "title": "Azadlıq prospekti — İnfrastruktur",
+      "status": "Rədd edildi",
+      "type": "İnfrastruktur",
+      "rayon": "Binəqədi",
+      "unvan": "Azadlıq prospekti 78",
+      "muracietci": "BakıYolServis",
+      "mertebe": 0,
+      "sahe": 800,
+      "baslangic": null,
+      "bitis": null,
+      "date": "08.04.2026"
+    },
+    {
+      "id": 4,
+      "lat": 40.408,
+      "lng": 49.856,
+      "title": "Tbilisi prospekti — Yaşayış kompleksi",
+      "status": "Təsdiqləndi",
+      "type": "Yaşayış",
+      "rayon": "Nərimanov",
+      "unvan": "Tbilisi prospekti 22",
+      "muracietci": "ProBuild ASC",
+      "mertebe": 24,
+      "sahe": 18000,
+      "baslangic": "10.04.2026",
+      "bitis": "10.04.2029",
+      "date": "01.04.2026"
+    },
+    {
+      "id": 5,
+      "lat": 40.391,
+      "lng": 49.902,
+      "title": "Rəşid Behbudov küçəsi — Ofis binası",
+      "status": "Gözləyir",
+      "type": "Kommersiya",
+      "rayon": "Yasamal",
+      "unvan": "Rəşid Behbudov küçəsi 5",
+      "muracietci": "CityOffice Ltd",
+      "mertebe": 12,
+      "sahe": 6500,
+      "baslangic": "01.06.2026",
+      "bitis": "01.06.2027",
+      "date": "20.04.2026"
+    },
+    {
+      "id": 6,
+      "lat": 40.445,
+      "lng": 49.878,
+      "title": "Hüsü Hacıyev küçəsi — Anbar",
+      "status": "Rədd edildi",
+      "type": "Sənaye",
+      "rayon": "Xətai",
+      "unvan": "Hüsü Hacıyev küçəsi 101",
+      "muracietci": "LogiStore MMC",
+      "mertebe": 2,
+      "sahe": 3200,
+      "baslangic": null,
+      "bitis": null,
+      "date": "11.04.2026"
+    },
+    {
+      "id": 7,
+      "lat": 40.418,
+      "lng": 49.941,
+      "title": "Füzuli küçəsi — Mədəni mərkəz",
+      "status": "Təsdiqləndi",
+      "type": "İctimai",
+      "rayon": "Nəsimi",
+      "unvan": "Füzuli küçəsi 33",
+      "muracietci": "Bakı Şəhər İcra Hakimiyyəti",
+      "mertebe": 4,
+      "sahe": 9500,
+      "baslangic": "01.05.2026",
+      "bitis": "01.11.2027",
+      "date": "22.04.2026"
     }
   ]
 }
