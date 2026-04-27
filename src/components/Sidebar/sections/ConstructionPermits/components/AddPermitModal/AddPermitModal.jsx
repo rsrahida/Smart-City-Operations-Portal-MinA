@@ -260,23 +260,21 @@ const AddPermitModal = ({ onClose, onAdd }) => {
                 ))}
               </div>
             </div>
-
-            <div className={styles.field}>
-              <label className={styles.label}>Status</label>
-              <div className={styles.statusGroup}>
-                {["Gözləyir", "Təsdiqləndi", "Rədd edildi"].map((s) => (
-                  <button
-                    key={s}
-                    className={`${styles.statusBtn} ${form.status === s ? styles.statusActive : ""}`}
-                    onClick={() => setField("status", s)}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label}>Status</label>
+            <div className={styles.statusGroup}>
+              {["Gözləyir", "Təsdiqləndi", "Rədd edildi"].map((s) => (
+                <button
+                  key={s}
+                  className={`${styles.statusBtn} ${form.status === s ? styles.statusActive : ""}`}
+                  onClick={() => setField("status", s)}
+                >
+                  {s}
+                </button>
+              ))}
             </div>
           </div>
-
           <div className={styles.field}>
             <label className={styles.label}>Müraciətçi *</label>
             <input

@@ -14,6 +14,8 @@ const ComplaintCard = ({ item, isSelected, onSelect, onDelete, onEdit }) => {
     dot: "#9ca3af",
   };
 
+  const isDisabled = !item.isCustom;
+
   return (
     <div
       className={`${styles.card} ${isSelected ? styles.selected : ""}`}
@@ -22,29 +24,30 @@ const ComplaintCard = ({ item, isSelected, onSelect, onDelete, onEdit }) => {
       <div className={styles.top}>
         <div className={styles.dot} style={{ background: s.dot }} />
         <span className={styles.title}>Problem : {item.title}</span>
-        {onEdit && (
-          <button
-            className={styles.editBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              onEdit();
-            }}
-          >
-            <i className="fa-regular fa-pen-to-square"></i>
-          </button>
-        )}
-        {item.isCustom && (
-          <button
-            className={styles.deleteBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete();
-            }}
-            title="Sil"
-          >
-            <i className="fa-solid fa-trash" />
-          </button>
-        )}
+
+        <button
+          className={`${styles.editBtn} ${isDisabled ? styles.btnDisabled : ""}`}
+          disabled={isDisabled}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!isDisabled) onEdit?.();
+          }}
+          title={isDisabled ? "Redaktə edilə bilməz" : "Redaktə et"}
+        >
+          <i className="fa-regular fa-pen-to-square"></i>
+        </button>
+
+        <button
+          className={`${styles.deleteBtn} ${isDisabled ? styles.btnDisabled : ""}`}
+          disabled={isDisabled}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!isDisabled) onDelete?.();
+          }}
+          title={isDisabled ? "Silinə bilməz" : "Sil"}
+        >
+          <i className="fa-solid fa-trash" />
+        </button>
       </div>
 
       <div className={styles.meta}>

@@ -267,7 +267,6 @@
 
 .typeGroup {
   display: flex;
-  flex-wrap: wrap;
   gap: 6px;
 }
 
@@ -282,6 +281,7 @@
   color: #7c6a5e;
   cursor: pointer;
   transition: all 0.18s;
+  width: 88px;
 }
 
 .typeBtn:hover {

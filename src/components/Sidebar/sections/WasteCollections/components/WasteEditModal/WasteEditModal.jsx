@@ -70,7 +70,9 @@ const WasteEditModal = ({ item, onClose, onSave }) => {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
-          <div className={styles.modalIcon}><i className="fa-solid fa-trash-can" style={{ color: "white" }}></i>F</div>
+          <div className={styles.modalIcon}>
+            <i className="fa-solid fa-trash-can" style={{ color: "white" }}></i>
+          </div>
           <div>
             <p className={styles.modalSub}>
               Tullantı məntəqəsi məlumatlarını yeniləyin

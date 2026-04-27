@@ -40,8 +40,8 @@ const LightList = ({
               item={item}
               isSelected={selected?.id === item.id}
               onSelect={() => onSelect(item)}
-              onDelete={item.isCustom ? () => onDelete(item.id) : null}
-              onEdit={item.isCustom ? () => onEdit(item) : null}
+              onDelete={() => onDelete(item.id)}
+              onEdit={() => onEdit(item)}
             />
           ))
         )}

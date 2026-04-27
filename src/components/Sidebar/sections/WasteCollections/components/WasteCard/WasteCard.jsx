@@ -85,6 +85,8 @@ const WasteCard = ({ item, isSelected, onSelect, onDelete, onEdit }) => {
   const nextDate = getNextCollection(item.toplamaVaxti);
   const countdown = useCountdown(nextDate);
 
+  const isDisabled = !item.isCustom;
+
   return (
     <div
       className={`${styles.card} ${isSelected ? styles.selected : ""}`}
@@ -94,28 +96,29 @@ const WasteCard = ({ item, isSelected, onSelect, onDelete, onEdit }) => {
         <div className={styles.dot} style={{ background: s.dot }} />
         <span className={styles.title}>{item.title}</span>
 
-        {onEdit && (
-          <button
-            className={styles.editBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              onEdit();
-            }}
-          >
-            <i className="fa-regular fa-pen-to-square" />
-          </button>
-        )}
-        {onDelete && (
-          <button
-            className={styles.deleteBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete();
-            }}
-          >
-            <i className="fa-solid fa-trash" />
-          </button>
-        )}
+        <button
+          className={`${styles.editBtn} ${isDisabled ? styles.btnDisabled : ""}`}
+          disabled={isDisabled}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!isDisabled) onEdit?.();
+          }}
+          title={isDisabled ? "Redaktə edilə bilməz" : "Redaktə et"}
+        >
+          <i className="fa-regular fa-pen-to-square" />
+        </button>
+
+        <button
+          className={`${styles.deleteBtn} ${isDisabled ? styles.btnDisabled : ""}`}
+          disabled={isDisabled}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!isDisabled) onDelete?.();
+          }}
+          title={isDisabled ? "Silinə bilməz" : "Sil"}
+        >
+          <i className="fa-solid fa-trash" />
+        </button>
       </div>
 
       <div className={styles.progressRow}>

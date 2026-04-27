@@ -1,5 +1,3 @@
-/* LightCard.module.css */
-
 .card {
   padding: 13px 14px;
   border-radius: 12px;
@@ -59,7 +57,7 @@
   flex-shrink: 0;
 }
 
-.editBtn:hover {
+.editBtn:hover:not(.btnDisabled) {
   color: #4aaa02;
   background: #4baa0257;
 }
@@ -78,9 +76,15 @@
   flex-shrink: 0;
 }
 
-.deleteBtn:hover {
+.deleteBtn:hover:not(.btnDisabled) {
   color: #ef4444;
   background: #fee2e2;
+}
+
+.btnDisabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .meta {
