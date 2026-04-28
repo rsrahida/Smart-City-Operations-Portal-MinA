@@ -33,46 +33,64 @@ const LoadingScreen = () => (
   </div>
 );
 
-const NonMapRoutes = ({ onReady }) => {
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      onReady();
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <Routes>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/analytics" element={<Analytics />} />
-      <Route path="/roadissues" element={<RoadIssues />} />
-      <Route path="/streetlight" element={<StreetLight />} />
-      <Route path="/wastecollections" element={<WasteCollections />} />
-      <Route path="/constructionpermits" element={<ConstructionPermits />} />
-      <Route path="/trafficincidents" element={<TrafficIncidents />} />
-      <Route path="/constructionpermits" element={<ConstructionPermits />} />
-    </Routes>
-  );
-};
 const App = () => {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div
+      style={{
+        display: "flex",
+        height: "100vh",
+        overflow: "hidden",
+      }}
+    >
       {loading && <LoadingScreen />}
+
       <Sidebar />
-      <div style={{ flex: 1 }}>
+
+      <main
+        style={{
+          flex: 1,
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <Routes>
           <Route
             path="/"
             element={<Map onMapReady={() => setLoading(false)} />}
           />
           <Route
-            path="*"
-            element={<NonMapRoutes onReady={() => setLoading(false)} />}
+            path="/dashboard"
+            element={<Dashboard onReady={() => setLoading(false)} />}
+          />
+          <Route
+            path="/analytics"
+            element={<Analytics onReady={() => setLoading(false)} />}
+          />
+          <Route
+            path="/roadissues"
+            element={<RoadIssues onReady={() => setLoading(false)} />}
+          />
+          <Route
+            path="/streetlight"
+            element={<StreetLight onReady={() => setLoading(false)} />}
+          />
+          <Route
+            path="/wastecollections"
+            element={<WasteCollections onReady={() => setLoading(false)} />}
+          />
+          <Route
+            path="/trafficincidents"
+            element={<TrafficIncidents onReady={() => setLoading(false)} />}
+          />
+          <Route
+            path="/constructionpermits"
+            element={<ConstructionPermits onReady={() => setLoading(false)} />}
           />
         </Routes>
-      </div>
+      </main>
     </div>
   );
 };

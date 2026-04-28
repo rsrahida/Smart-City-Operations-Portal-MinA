@@ -13,8 +13,10 @@
     "@arcgis/core": "^5.0.17",
     "@lottiefiles/dotlottie-react": "^0.19.0",
     "@turf/turf": "^7.3.5",
+    "chart.js": "^4.5.1",
     "leaflet.markercluster": "^1.5.3",
     "react": "^19.2.5",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.2"
   },

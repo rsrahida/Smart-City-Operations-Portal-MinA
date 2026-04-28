@@ -1,3 +1,4 @@
+/* ── Wrapper ──────────────────────────────────────────────────────────────── */
 .mapWrapper {
   flex: 1;
   position: relative;
@@ -9,6 +10,7 @@
   height: 100%;
 }
 
+/* ── Legend ──────────────────────────────────────────────────────────────── */
 .legend {
   position: absolute;
   bottom: 24px;
@@ -43,11 +45,50 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-.legendBuffer {
-  width: 18px;
-  height: 11px;
-  border-radius: 3px;
-  border: 2px dashed rgba(180, 20, 20, 0.9);
-  background: rgba(30, 10, 10, 0.45);
+.legendDivider {
+  border-top: 1px solid #f3f4f6;
+  margin: 1px 0;
+}
+
+/* İşıq Glow nümunəsi */
+.legendGlow {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
   flex-shrink: 0;
+  background: radial-gradient(circle, rgba(255,240,80,0.95) 30%, rgba(255,220,60,0.4) 70%, transparent 100%);
+  box-shadow: 0 0 6px 3px rgba(255, 220, 60, 0.5);
+  animation: glowPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 6px 3px rgba(255, 220, 60, 0.4); }
+  50%       { box-shadow: 0 0 10px 5px rgba(255, 230, 80, 0.7); }
+}
+
+/* Blink nümunəsi */
+.legendBlink {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgb(234, 179, 8);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  animation: blinkAnim 0.8s ease-in-out infinite;
+}
+
+@keyframes blinkAnim {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.15; }
+}
+
+/* Buffer (qaranlıq zona) nümunəsi */
+.legendBuffer {
+  width: 14px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  background: rgba(30, 10, 10, 0.35);
+  border: 1.5px dashed rgba(180, 20, 20, 0.8);
 }

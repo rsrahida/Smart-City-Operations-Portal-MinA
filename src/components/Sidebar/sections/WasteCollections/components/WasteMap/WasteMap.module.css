@@ -18,20 +18,25 @@
   padding: 10px 14px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   z-index: 1000;
   border: 1.5px solid rgba(249, 115, 22, 0.1);
 }
 
+.legendSection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .legendTitle {
   font-family: "DM Sans", sans-serif;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 700;
-  color: #c4b8b0;
+  color: #9c8880;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 2px;
+  letter-spacing: 0.06em;
 }
 
 .legendItem {
@@ -53,17 +58,36 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
+.legendSvgIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
 .legendDivider {
-  height: 1px;
-  background: rgba(0, 0, 0, 0.06);
+  border-top: 1px solid #f3f4f6;
   margin: 2px 0;
 }
 
 .legendPulse {
-  width: 18px;
+  width: 11px;
   height: 11px;
-  border-radius: 3px;
-  border: 1.5px solid rgba(239, 68, 68, 0.5);
-  background: rgba(239, 68, 68, 0.12);
+  border-radius: 50%;
   flex-shrink: 0;
+  background: rgba(239, 68, 68, 0.35);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  animation: legendPulseAnim 1.8s ease-out infinite;
+}
+
+@keyframes legendPulseAnim {
+  0% {
+    transform: scale(0.7);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }

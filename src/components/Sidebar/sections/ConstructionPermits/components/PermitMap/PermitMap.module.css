@@ -18,10 +18,25 @@
   padding: 10px 14px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   z-index: 1000;
   border: 1.5px solid rgba(249, 115, 22, 0.1);
+}
+
+.legendSection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.legendTitle {
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #9c8880;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .legendItem {
@@ -34,6 +49,13 @@
   color: #52463d;
 }
 
+.legendEmoji {
+  font-size: 14px;
+  line-height: 1;
+  width: 18px;
+  text-align: center;
+}
+
 .legendDot {
   width: 11px;
   height: 11px;
@@ -41,4 +63,30 @@
   flex-shrink: 0;
   border: 2px solid #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.legendDivider {
+  border-top: 1px solid #f3f4f6;
+  margin: 2px 0;
+}
+
+.legendSizeRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.legendSizeLine {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(to right, #d1d5db, #f97316);
+  border-radius: 2px;
+}
+
+.legendSizeHint {
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  color: #9c8880;
+  font-weight: 500;
 }
