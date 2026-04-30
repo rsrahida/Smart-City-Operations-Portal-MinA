@@ -4,3 +4,77 @@
   box-sizing: border-box;
 }
 
+.ant-table-content,
+.ant-table-body,
+.ant-table-content > div,
+.ant-table-wrapper div,
+.ant-spin-container,
+.ant-spin-nested-loading > div,
+.ant-table-scroll-horizontal {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(249, 115, 22, 0.35) rgba(253, 246, 238, 0.7);
+}
+
+.ant-table-content::-webkit-scrollbar,
+.ant-table-body::-webkit-scrollbar,
+.ant-table-content > div::-webkit-scrollbar,
+.ant-table-wrapper div::-webkit-scrollbar,
+.ant-spin-container::-webkit-scrollbar,
+.ant-spin-nested-loading > div::-webkit-scrollbar,
+.ant-table-scroll-horizontal::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+.ant-table-body {
+  overflow-y: auto !important;
+}
+.ant-table-body::-webkit-scrollbar {
+  width: 3px !important;
+  height: 3px !important;
+}
+.ant-table-body::-webkit-scrollbar-track {
+  background: rgba(253, 246, 238, 0.9) !important;
+  border-radius: 99px !important;
+}
+.ant-table-body::-webkit-scrollbar-thumb {
+  background: rgba(249, 115, 22, 0.38) !important;
+  border-radius: 99px !important;
+  border: 1px solid rgba(249, 115, 22, 0.12) !important;
+}
+.ant-table-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 115, 22, 0.65) !important;
+}
+
+.ant-table-content::-webkit-scrollbar-track,
+.ant-table-content > div::-webkit-scrollbar-track,
+.ant-table-wrapper div::-webkit-scrollbar-track,
+.ant-spin-container::-webkit-scrollbar-track,
+.ant-table-scroll-horizontal::-webkit-scrollbar-track {
+  background: rgba(253, 246, 238, 0.9);
+  border-radius: 99px;
+}
+
+.ant-table-content::-webkit-scrollbar-thumb,
+.ant-table-content > div::-webkit-scrollbar-thumb,
+.ant-table-wrapper div::-webkit-scrollbar-thumb,
+.ant-spin-container::-webkit-scrollbar-thumb,
+.ant-table-scroll-horizontal::-webkit-scrollbar-thumb {
+  background: rgba(249, 115, 22, 0.38);
+  border-radius: 99px;
+  border: 1px solid rgba(249, 115, 22, 0.12);
+}
+
+.ant-table-content::-webkit-scrollbar-thumb:hover,
+.ant-table-content > div::-webkit-scrollbar-thumb:hover,
+.ant-table-wrapper div::-webkit-scrollbar-thumb:hover,
+.ant-spin-container::-webkit-scrollbar-thumb:hover,
+.ant-table-scroll-horizontal::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 115, 22, 0.65);
+}
+
+.ant-table-content::-webkit-scrollbar-corner,
+.ant-table-body::-webkit-scrollbar-corner,
+.ant-table-scroll-horizontal::-webkit-scrollbar-corner {
+  background: #fdf6ee;
+}

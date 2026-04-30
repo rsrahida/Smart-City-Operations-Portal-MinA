@@ -221,16 +221,16 @@ const KpiCard = ({
     className={`${styles.kpiCard} ${active ? styles.kpiCardActive : ""}`}
     onClick={onClick}
   >
-    <div className={styles.kpiAccent} style={{ background: color }} />
-    <div className={styles.kpiIconRow} style={{ color }}>
-      <i className={icon} style={{ fontSize: 13, color }} />
+    <div className={styles.kpiAccent} style={{ background: "#f97316" }} />
+    <div className={styles.kpiIconRow} style={{ color: "#f97316" }}>
+      <i className={icon} style={{ fontSize: 13, color: "#f97316" }} />
       {label}
     </div>
-    <div className={styles.kpiValue} style={{ color }}>
+    <div className={styles.kpiValue} style={{ color: "#f97316" }}>
       {value}
     </div>
     <div className={styles.kpiSub}>
-      <span style={{ color, fontWeight: 600 }}>{aktiv}</span> aktiv
+      <span style={{ color: "#f97316", fontWeight: 600 }}>{aktiv}</span> aktiv
     </div>
   </div>
 );
@@ -385,10 +385,10 @@ const DonutCard = ({ data, title }) => {
 
 const StatGrid = ({ total, aktiv, hell, thisMonth, color }) => {
   const items = [
-    { label: "Ümumi", val: total, color },
+    { label: "Ümumi", val: total, color: "#f97316" },
     { label: "Aktiv", val: aktiv, color: "#f97316" },
-    { label: "Həll edildi", val: hell, color: "#22c55e" },
-    { label: "Bu ay", val: thisMonth, color: "#3b82f6" },
+    { label: "Həll edildi", val: hell, color: "#f97316" },
+    { label: "Bu ay", val: thisMonth, color: "#f97316" },
   ];
   return (
     <div>
@@ -530,7 +530,7 @@ const getTabs = (data) => {
       key: "traffic",
       icon: "fa-solid fa-car-burst",
       label: "Trafik Hadisələri",
-      color: "#ef4444",
+      color: "#f97316",
       items: traffic,
       aktiv: traffic.filter((t) => t.status === "Aktiv").length,
       hell: traffic.filter((t) => t.status !== "Aktiv").length,
@@ -540,7 +540,7 @@ const getTabs = (data) => {
       key: "lights",
       icon: "fa-solid fa-lightbulb",
       label: "Küçə İşıqları",
-      color: "#eab308",
+      color: "#f97316",
       items: lights,
       aktiv: lights.filter((l) => l.status !== "İşləyir").length,
       hell: lights.filter((l) => l.status === "İşləyir").length,
@@ -550,7 +550,7 @@ const getTabs = (data) => {
       key: "waste",
       icon: "fa-solid fa-trash-can",
       label: "Tullantı Məntəqəsi",
-      color: "#a855f7",
+      color: "#f97316",
       items: waste,
       aktiv: waste.filter((w) => w.dolulug >= 80 || w.status === "Kritik")
         .length,
@@ -561,7 +561,7 @@ const getTabs = (data) => {
       key: "permits",
       icon: "fa-solid fa-file-contract",
       label: "Tikinti İcazəsi",
-      color: "#06b6d4",
+      color: "#f97316",
       items: permits,
       aktiv: permits.filter((p) => p.status === "Gözləyir").length,
       hell: permits.filter((p) => p.status === "Təsdiqləndi").length,

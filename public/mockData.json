@@ -7,7 +7,9 @@
       "title": "Yolda çuxur var",
       "status": "Yeni",
       "rayon": "Nəsimi",
-      "date": "18.04.2026"
+      "date": "18.04.2026",
+      "tesvir": "Yolun ortasında dərin çuxur yaranıb, avtomobillərin hərəkətinə ciddi maneə yaradır.",
+      "unvan": "28 May küçəsi, Nəsimi rayonu"
     },
     {
       "id": 2,
@@ -16,7 +18,9 @@
       "title": "Körpü zədəsi",
       "status": "İcradadır",
       "rayon": "Xətai",
-      "date": "15.04.2026"
+      "date": "15.04.2026",
+      "tesvir": "Körpünün yan hissəsində çatlar əmələ gəlib, təhlükəsizlik baxımından risklidir.",
+      "unvan": "Babək prospekti yaxınlığı, Xətai rayonu"
     },
     {
       "id": 3,
@@ -25,7 +29,9 @@
       "title": "Kanalizasiya problemi",
       "status": "Yeni",
       "rayon": "Sabunçu",
-      "date": "20.04.2026"
+      "date": "20.04.2026",
+      "tesvir": "Kanalizasiya xətti daşır, ətraf əraziyə pis qoxu yayılır və sanitariya problemi yaradır.",
+      "unvan": "Zabrat qəsəbəsi, Sabunçu rayonu"
     },
     {
       "id": 4,
@@ -34,7 +40,9 @@
       "title": "Səkilər sınıb",
       "status": "Həll edildi",
       "rayon": "Yasamal",
-      "date": "10.04.2026"
+      "date": "10.04.2026",
+      "tesvir": "Piyada səkisinin daşları qırılmışdı, hərəkət çətin idi, artıq bərpa olunub.",
+      "unvan": "Elmlər Akademiyası metrosu ətrafı, Yasamal rayonu"
     },
     {
       "id": 5,
@@ -43,7 +51,53 @@
       "title": "Yol işarəsi yoxdur",
       "status": "Yeni",
       "rayon": "Suraxanı",
-      "date": "21.04.2026"
+      "date": "21.04.2026",
+      "tesvir": "Yol ayrıcında heç bir istiqamət və xəbərdarlıq nişanı yoxdur, sürücülər çaşqınlıq yaşayır.",
+      "unvan": "Qaraçuxur qəsəbəsi, Suraxanı rayonu"
+    },
+    {
+      "id": 6,
+      "lat": 40.3845,
+      "lng": 49.8621,
+      "title": "Su borusu sızıntısı",
+      "status": "İcradadır",
+      "rayon": "Nəsimi",
+      "date": "22.04.2026",
+      "tesvir": "Yeraltı su borusundan sızıntı var, yol üzərinə su çıxıb, hərəkəti çətinləşdirir.",
+      "unvan": "İstiqlaliyyət küçəsi, Nəsimi rayonu"
+    },
+    {
+      "id": 7,
+      "lat": 40.4112,
+      "lng": 49.8734,
+      "title": "Zibil yığılıb",
+      "status": "Yeni",
+      "rayon": "Nərimanov",
+      "date": "23.04.2026",
+      "tesvir": "Park ərazisinin kənarında zibil tullantıları yığılıb, uzun müddətdir götürülmür.",
+      "unvan": "Hüsü Hacıyev küçəsi, Nərimanov rayonu"
+    },
+    {
+      "id": 8,
+      "lat": 40.3963,
+      "lng": 49.8524,
+      "title": "Küçə lampası işləmir",
+      "status": "İcradadır",
+      "rayon": "Yasamal",
+      "date": "19.04.2026",
+      "tesvir": "Küçənin 3 lampası sınıb, gecə vaxtı ərazi tamamilə qaranlıq qalır, cinayət riski artır.",
+      "unvan": "Nizami küçəsi, Yasamal rayonu"
+    },
+    {
+      "id": 9,
+      "lat": 40.4389,
+      "lng": 49.9321,
+      "title": "Ağac yola yıxılıb",
+      "status": "Həll edildi",
+      "rayon": "Xətai",
+      "date": "17.04.2026",
+      "tesvir": "Küləkli havada yaşlı ağac yola yıxılmışdı, növbəti gün xidmət tərəfindən götürülüb.",
+      "unvan": "Əliağa Vahid küçəsi, Xətai rayonu"
     }
   ],
   "streetLights": [
@@ -54,6 +108,8 @@
       "title": "Füzuli küçəsi",
       "rayon": "Nəsimi",
       "status": "İşləyir",
+      "tesvir": "Küçə işıqlandırması normal işləyir, hər hansı problem müşahidə olunmur.",
+      "unvan": "Füzuli küçəsi, Nəsimi rayonu",
       "date": "19.04.2026"
     },
     {
@@ -63,6 +119,8 @@
       "title": "Neftçilər prospekti",
       "rayon": "Nəsimi",
       "status": "Nasaz",
+      "tesvir": "Bir neçə küçə lampası işləmir, ərazi gecə vaxtı qaranlıq qalır.",
+      "unvan": "Neftçilər prospekti, Nəsimi rayonu",
       "date": "17.04.2026"
     },
     {
@@ -72,6 +130,8 @@
       "title": "Hüsü Hacıyev küçəsi",
       "rayon": "Xətai",
       "status": "Sönük",
+      "tesvir": "İşıqlar zəif yanır, işıqlandırma səviyyəsi kifayət etmir.",
+      "unvan": "Hüsü Hacıyev küçəsi, Xətai rayonu",
       "date": "12.04.2026"
     },
     {
@@ -81,6 +141,8 @@
       "title": "Tbilisi prospekti",
       "rayon": "Nərimanov",
       "status": "İşləyir",
+      "tesvir": "Prospekt üzrə bütün işıq dirəkləri normal fəaliyyət göstərir.",
+      "unvan": "Tbilisi prospekti, Nərimanov rayonu",
       "date": "20.04.2026"
     },
     {
@@ -90,6 +152,8 @@
       "title": "Nizami küçəsi",
       "rayon": "Nəsimi",
       "status": "Sönük",
+      "tesvir": "İşıqlar fasilələrlə sönür, texniki baxış tələb olunur.",
+      "unvan": "Nizami küçəsi, Nəsimi rayonu",
       "date": "18.04.2026"
     },
     {
@@ -99,7 +163,42 @@
       "title": "İstiqlaliyyət küçəsi",
       "rayon": "Səbail",
       "status": "Nasaz",
+      "tesvir": "Küçə işıqları tam söndürülüb, təmir işlərinə ehtiyac var.",
+      "unvan": "İstiqlaliyyət küçəsi, Səbail rayonu",
       "date": "16.04.2026"
+    },
+    {
+      "id": 7,
+      "lat": 40.4289,
+      "lng": 49.8423,
+      "title": "Azadlıq prospekti — şimal",
+      "rayon": "Binəqədi",
+      "status": "İşləyir",
+      "tesvir": "Yeni quraşdırılmış LED lampalar tam fəaliyyət göstərir, işıqlandırma yaxşıdır.",
+      "unvan": "Azadlıq prospekti, Binəqədi rayonu",
+      "date": "21.04.2026"
+    },
+    {
+      "id": 8,
+      "lat": 40.3956,
+      "lng": 49.9134,
+      "title": "Rəşid Behbudov küçəsi",
+      "rayon": "Yasamal",
+      "status": "Nasaz",
+      "tesvir": "3 ardıcıl dirəyin lampası yanmır, ərazi tamamilə qaranlıqdır.",
+      "unvan": "Rəşid Behbudov küçəsi, Yasamal rayonu",
+      "date": "22.04.2026"
+    },
+    {
+      "id": 9,
+      "lat": 40.4467,
+      "lng": 49.9023,
+      "title": "Əliağa Vahid küçəsi",
+      "rayon": "Xətai",
+      "status": "İşləyir",
+      "tesvir": "Küçə işıqlandırması əla vəziyyətdədir, heç bir problem yoxdur.",
+      "unvan": "Əliağa Vahid küçəsi, Xətai rayonu",
+      "date": "23.04.2026"
     }
   ],
   "wastePoints": [
@@ -112,6 +211,7 @@
       "status": "Normal",
       "növ": "Ümumi",
       "rayon": "Nəsimi",
+      "unvan": "28 May küçəsi yaxınlığı, Nəsimi rayonu",
       "toplamaVaxti": "Hər Çərşənbə 09:00",
       "date": "21.04.2026"
     },
@@ -124,6 +224,7 @@
       "status": "Kritik",
       "növ": "Plastik",
       "rayon": "Xətai",
+      "unvan": "Babək prospekti ətrafı, Xətai rayonu",
       "toplamaVaxti": "Hər Cümə 10:00",
       "date": "18.04.2026"
     },
@@ -136,6 +237,7 @@
       "status": "Kritik",
       "növ": "Üzvi",
       "rayon": "Sabunçu",
+      "unvan": "Zabrat qəsəbəsi, Sabunçu rayonu",
       "toplamaVaxti": "Hər Bazar ertəsi 08:00",
       "date": "14.04.2026"
     },
@@ -148,6 +250,7 @@
       "status": "Boş",
       "növ": "Kağız",
       "rayon": "Yasamal",
+      "unvan": "Elmlər Akademiyası metrosu ətrafı, Yasamal rayonu",
       "toplamaVaxti": "Hər Şənbə 11:00",
       "date": "23.04.2026"
     },
@@ -160,8 +263,61 @@
       "status": "Normal",
       "növ": "Plastik",
       "rayon": "Nərimanov",
+      "unvan": "Gənclik metrosu yaxınlığı, Nərimanov rayonu",
       "toplamaVaxti": "Hər Cümə axşamı 09:30",
       "date": "17.04.2026"
+    },
+    {
+      "id": 6,
+      "lat": 40.3734,
+      "lng": 49.8456,
+      "title": "Konteyner-6 — Səbail",
+      "dolulug": 55,
+      "status": "Normal",
+      "növ": "Şüşə",
+      "rayon": "Səbail",
+      "unvan": "İçərişəhər metrosu yaxınlığı, Səbail rayonu",
+      "toplamaVaxti": "Hər Çərşənbə axşamı 10:00",
+      "date": "22.04.2026"
+    },
+    {
+      "id": 7,
+      "lat": 40.4345,
+      "lng": 49.8712,
+      "title": "Konteyner-7 — Binəqədi",
+      "dolulug": 88,
+      "status": "Kritik",
+      "növ": "Ümumi",
+      "rayon": "Binəqədi",
+      "unvan": "Binəqədi bazarı ətrafı, Binəqədi rayonu",
+      "toplamaVaxti": "Hər Bazar 08:30",
+      "date": "20.04.2026"
+    },
+    {
+      "id": 8,
+      "lat": 40.4089,
+      "lng": 49.9456,
+      "title": "Konteyner-8 — Xətai (mərkəz)",
+      "dolulug": 30,
+      "status": "Boş",
+      "növ": "Metal",
+      "rayon": "Xətai",
+      "unvan": "Əliağa Vahid küçəsi, Xətai rayonu",
+      "toplamaVaxti": "Hər Çərşənbə 14:00",
+      "date": "24.04.2026"
+    },
+    {
+      "id": 9,
+      "lat": 40.3867,
+      "lng": 49.8934,
+      "title": "Konteyner-9 — Nəsimi cənub",
+      "dolulug": 72,
+      "status": "Kritik",
+      "növ": "Üzvi",
+      "rayon": "Nəsimi",
+      "unvan": "Füzuli meydanı yaxınlığı, Nəsimi rayonu",
+      "toplamaVaxti": "Hər Bazar ertəsi 09:00",
+      "date": "19.04.2026"
     }
   ],
   "trafficIncidents": [
@@ -175,6 +331,7 @@
       "status": "Aktiv",
       "rayon": "Nərimanov",
       "tesvir": "2 avtomobil toqquşması, yol tam bağlıdır, alternativ marşrutdan istifadə edin.",
+      "unvan": "Tbilisi prospekti, Nərimanov rayonu",
       "date": "27.04.2026",
       "time": "08:45"
     },
@@ -188,6 +345,7 @@
       "status": "Aktiv",
       "rayon": "Səbail",
       "tesvir": "3 avtomobil iştirakı ilə zəncirli qəza, xilasedicilər hadisə yerindədir, yol bağlıdır.",
+      "unvan": "Hüsü Hacıyev küçəsi, Səbail rayonu",
       "date": "27.04.2026",
       "time": "07:30"
     },
@@ -201,12 +359,12 @@
       "status": "Rədd edildi",
       "rayon": "Nəsimi",
       "tesvir": "2 avtomobil arasında yan toqquşma, zərər minimaldır, yol açılıb.",
+      "unvan": "Füzuli küçəsi, Nəsimi rayonu",
       "date": "26.04.2026",
       "time": "19:15"
     },
-
     {
-      "id": 5,
+      "id": 4,
       "lat": 40.4312,
       "lng": 49.8934,
       "title": "Azadlıq prospekti — yük maşını qəzası",
@@ -215,11 +373,12 @@
       "status": "Aktiv",
       "rayon": "Binəqədi",
       "tesvir": "Ağır yük maşını aşıb, hər iki istiqamət bağlıdır, xilasedicilər hadisə yerindədir.",
+      "unvan": "Azadlıq prospekti, Binəqədi rayonu",
       "date": "27.04.2026",
       "time": "06:20"
     },
     {
-      "id": 6,
+      "id": 5,
       "lat": 40.3784,
       "lng": 49.8423,
       "title": "Rəşid Behbudov küçəsi — arxa toqquşma",
@@ -228,11 +387,12 @@
       "status": "Həll edildi",
       "rayon": "Yasamal",
       "tesvir": "Arxa toqquşma, hər iki sürücü sağlamdır, avtomobillər yoldan çıxarılıb.",
+      "unvan": "Rəşid Behbudov küçəsi, Yasamal rayonu",
       "date": "25.04.2026",
       "time": "14:30"
     },
     {
-      "id": 7,
+      "id": 6,
       "lat": 40.4089,
       "lng": 49.9234,
       "title": "Xaqani küçəsi — pedestrə vurma",
@@ -241,8 +401,51 @@
       "status": "Aktiv",
       "rayon": "Nəsimi",
       "tesvir": "Avtomobil piyada keçidində pedestrə vurub, yaralı xəstəxanaya aparılıb, iş başlanıb.",
+      "unvan": "Xaqani küçəsi, Nəsimi rayonu",
       "date": "27.04.2026",
       "time": "05:50"
+    },
+    {
+      "id": 7,
+      "lat": 40.3945,
+      "lng": 49.8678,
+      "title": "Nizami küçəsi — tıxac",
+      "severity": "Orta",
+      "type": "Tıxac",
+      "status": "Aktiv",
+      "rayon": "Nəsimi",
+      "tesvir": "Svetofor arızası səbəbindən kəsişmədə ciddi tıxac yaranıb, 2 km uzunluğa çatıb.",
+      "unvan": "Nizami küçəsi / Füzuli küçəsi kəsişməsi, Nəsimi",
+      "date": "27.04.2026",
+      "time": "09:10"
+    },
+    {
+      "id": 8,
+      "lat": 40.4456,
+      "lng": 49.9512,
+      "title": "Babək prospekti — yol işləri",
+      "severity": "Orta",
+      "type": "Yol işi",
+      "status": "Aktiv",
+      "rayon": "Xətai",
+      "tesvir": "Boru xətti təmiri üçün yolun sağ zolağı bağlıdır, hərəkət yavaşlayıb.",
+      "unvan": "Babək prospekti, Xətai rayonu",
+      "date": "27.04.2026",
+      "time": "07:00"
+    },
+    {
+      "id": 9,
+      "lat": 40.4178,
+      "lng": 49.8145,
+      "title": "Binəqədi şossesi — yanma hadisəsi",
+      "severity": "Yüksək",
+      "type": "Hadisə",
+      "status": "Aktiv",
+      "rayon": "Binəqədi",
+      "tesvir": "Avtomobil alovlanıb, yanğınsöndürənlər yerindədir, yolun sağ zolağı bağlıdır.",
+      "unvan": "Binəqədi şossesi, Binəqədi rayonu",
+      "date": "27.04.2026",
+      "time": "10:25"
     }
   ],
   "permits": [
@@ -357,6 +560,38 @@
       "baslangic": "01.05.2026",
       "bitis": "01.11.2027",
       "date": "22.04.2026"
+    },
+    {
+      "id": 8,
+      "lat": 40.3856,
+      "lng": 49.8534,
+      "title": "Nizami küçəsi — Mehmanxana",
+      "status": "Gözləyir",
+      "type": "Kommersiya",
+      "rayon": "Nəsimi",
+      "unvan": "Nizami küçəsi 88",
+      "muracietci": "BakuHotel Group MMC",
+      "mertebe": 20,
+      "sahe": 15000,
+      "baslangic": "01.07.2026",
+      "bitis": "01.07.2029",
+      "date": "25.04.2026"
+    },
+    {
+      "id": 9,
+      "lat": 40.4523,
+      "lng": 49.8912,
+      "title": "Sabunçu — Sənaye parkı",
+      "status": "Təsdiqləndi",
+      "type": "Sənaye",
+      "rayon": "Sabunçu",
+      "unvan": "Sabunçu sənaye zonası, bina 3",
+      "muracietci": "AzərSənaye ASC",
+      "mertebe": 3,
+      "sahe": 25000,
+      "baslangic": "15.05.2026",
+      "bitis": "15.05.2027",
+      "date": "18.04.2026"
     }
   ]
 }
