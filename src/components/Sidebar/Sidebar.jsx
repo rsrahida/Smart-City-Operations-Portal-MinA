@@ -7,23 +7,23 @@ const NAV_ITEMS = [
   { to: "/dashboard", icon: "fa-solid fa-chart-pie", label: "Admin Panel" },
   { to: "/analytics", icon: "fa-solid fa-chart-line", label: "Analitika" },
   {
-    to: "/roadissues",
+    to: "/road-issues",
     icon: "fa-solid fa-road-barrier",
     label: "Yol Problemləri",
   },
-  { to: "/streetlight", icon: "fa-solid fa-lightbulb", label: "Küçə İşıqları" },
+  { to: "/street-light", icon: "fa-solid fa-lightbulb", label: "Küçə İşıqları" },
   {
-    to: "/wastecollections",
+    to: "/waste-collections",
     icon: "fa-solid fa-trash-can",
     label: "Tullantı Məntəqələri",
   },
   {
-    to: "/trafficincidents",
+    to: "/traffic-incidents",
     icon: "fa-solid fa-car-burst",
     label: "NQ Hadisələri",
   },
   {
-    to: "/constructionpermits",
+    to: "/construction-permits",
     icon: "fa-solid fa-helmet-safety",
     label: "Tikinti İcazələri",
   },
