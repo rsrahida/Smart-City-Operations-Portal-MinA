@@ -70,23 +70,23 @@ const App = () => {
             element={<Analytics onReady={() => setLoading(false)} />}
           />
           <Route
-            path="/roadissues"
+            path="/road-issues"
             element={<RoadIssues onReady={() => setLoading(false)} />}
           />
           <Route
-            path="/streetlight"
+            path="/street-light"
             element={<StreetLight onReady={() => setLoading(false)} />}
           />
           <Route
-            path="/wastecollections"
+            path="/waste-collections"
             element={<WasteCollections onReady={() => setLoading(false)} />}
           />
           <Route
-            path="/trafficincidents"
+            path="/traffic-incidents"
             element={<TrafficIncidents onReady={() => setLoading(false)} />}
           />
           <Route
-            path="/constructionpermits"
+            path="/construction-permits"
             element={<ConstructionPermits onReady={() => setLoading(false)} />}
           />
         </Routes>
