@@ -27,6 +27,11 @@ const NAV_ITEMS = [
     icon: "fa-solid fa-helmet-safety",
     label: "Tikinti İcazələri",
   },
+{
+  to: "/smart-poles",
+  icon: "fa-solid fa-lightbulb",
+  label: "Smart Poles",
+}
 ];
 
 const Sidebar = () => {

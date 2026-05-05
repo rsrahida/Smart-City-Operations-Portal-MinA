@@ -10,6 +10,7 @@ import StreetLight from "./components/Sidebar/sections/StreetLight/StreetLight";
 import WasteCollections from "./components/Sidebar/sections/WasteCollections/WasteCollections";
 import ConstructionPermits from "./components/Sidebar/sections/ConstructionPermits/ConstructionPermits";
 import TrafficIncidents from "./components/Sidebar/sections/TrafficIncidents/TrafficIncidents";
+import SmartPoles from "./components/Sidebar/sections/SmartPoles/SmartPoles";
 
 const LoadingScreen = () => (
   <div
@@ -88,6 +89,10 @@ const App = () => {
           <Route
             path="/construction-permits"
             element={<ConstructionPermits onReady={() => setLoading(false)} />}
+          />
+          <Route
+            path="/smart-poles"
+            element={<SmartPoles onReady={() => setLoading(false)} />}
           />
         </Routes>
       </main>
