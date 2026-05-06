@@ -11,7 +11,11 @@ const NAV_ITEMS = [
     icon: "fa-solid fa-road-barrier",
     label: "Yol Problemləri",
   },
-  { to: "/street-light", icon: "fa-solid fa-lightbulb", label: "Küçə İşıqları" },
+  {
+    to: "/street-light",
+    icon: "fa-solid fa-lightbulb",
+    label: "Küçə İşıqları",
+  },
   {
     to: "/waste-collections",
     icon: "fa-solid fa-trash-can",
@@ -27,11 +31,11 @@ const NAV_ITEMS = [
     icon: "fa-solid fa-helmet-safety",
     label: "Tikinti İcazələri",
   },
-{
-  to: "/smart-poles",
-  icon: "fa-solid fa-lightbulb",
-  label: "Smart Poles",
-}
+  {
+    to: "/smart-poles",
+    icon: "fa-solid fa-map-pin",
+    label: "İşıq Dirəkləri",
+  },
 ];
 
 const Sidebar = () => {
