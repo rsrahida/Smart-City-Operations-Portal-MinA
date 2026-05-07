@@ -828,11 +828,10 @@ export default function SmartPoles() {
       clickMarkerRef.current.remove();
       clickMarkerRef.current = null;
     }
-
     mapRef.current?.flyTo([pos.lat, pos.lng], 18, { duration: 1 });
     setAddedAnim(true);
     setClickedOnViewer(null);
-    setClickPixel(null); // ── NEW: clear overlay marker
+    setClickPixel(null);
     setTimeout(() => setAddedAnim(false), 2200);
   }, [clickedOnViewer, svPos]);
 
