@@ -691,12 +691,9 @@ export default function SmartPoles() {
       mlyRef.current = viewer;
 
       viewer.on("click", (event) => {
-        if (!event?.lngLat) return;
-        const lat = event.lngLat.lat;
-        const lng = event.lngLat.lng;
-        setClickedOnViewer({ lat, lng });
+        setClickedOnViewer({ lat: svPos.lat, lng: svPos.lng });
 
-        if (event.originalEvent && mlyDivRef.current) {
+        if (event?.originalEvent && mlyDivRef.current) {
           const rect = mlyDivRef.current.getBoundingClientRect();
           const px = event.originalEvent.clientX - rect.left;
           const py = event.originalEvent.clientY - rect.top;
@@ -706,32 +703,33 @@ export default function SmartPoles() {
         if (mapRef.current && window.L) {
           const L = window.L;
           if (previewMarkerRef.current) {
-            previewMarkerRef.current.remove();
-            previewMarkerRef.current = null;
+            previewMarkerRef.current.setLatLng([svPos.lat, svPos.lng]);
+          } else {
+            const pIcon = L.divIcon({
+              className: "",
+              html: `<div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="width:30px;height:30px;border-radius:50%;
+            background:linear-gradient(145deg,#f59e0b,#d97706);
+            border:2.5px solid #fff;
+            box-shadow:0 0 0 6px rgba(245,158,11,0.2),0 3px 12px rgba(245,158,11,0.4);
+            display:flex;align-items:center;justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="2" x2="12" y2="22"/>
+              <path d="M8 6 Q12 1 16 6"/>
+              <circle cx="12" cy="5.5" r="2" fill="#fff"/>
+            </svg></div>
+          <div style="width:2px;height:6px;background:#f59e0b;opacity:.7;"></div>
+        </div>`,
+              iconSize: [30, 38],
+              iconAnchor: [15, 38],
+            });
+            previewMarkerRef.current = L.marker([svPos.lat, svPos.lng], {
+              icon: pIcon,
+              zIndexOffset: 1500,
+            }).addTo(mapRef.current);
           }
-          const pIcon = L.divIcon({
-            className: "",
-            html: `<div style="display:flex;flex-direction:column;align-items:center;">
-              <div style="width:30px;height:30px;border-radius:50%;
-                background:linear-gradient(145deg,#f59e0b,#d97706);
-                border:2.5px solid #fff;
-                box-shadow:0 0 0 6px rgba(245,158,11,0.2),0 3px 12px rgba(245,158,11,0.4);
-                display:flex;align-items:center;justify-content:center;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
-                  <line x1="12" y1="2" x2="12" y2="22"/>
-                  <path d="M8 6 Q12 1 16 6"/>
-                  <circle cx="12" cy="5.5" r="2" fill="#fff"/>
-                </svg></div>
-              <div style="width:2px;height:6px;background:#f59e0b;opacity:.7;"></div>
-            </div>`,
-            iconSize: [30, 38],
-            iconAnchor: [15, 38],
-          });
-          previewMarkerRef.current = L.marker([lat, lng], {
-            icon: pIcon,
-            zIndexOffset: 1500,
-          }).addTo(mapRef.current);
-          mapRef.current?.setView([pos.lat, pos.lng], 18, { animate: false });
+
+          mapRef.current.setView([svPos.lat, svPos.lng], 18, { animate: true });
         }
       });
     })();
@@ -780,8 +778,7 @@ export default function SmartPoles() {
   }, [poles, renderPoleMarkers]);
 
   const addPole = useCallback(async () => {
-    const pos =
-      clickedOnViewer || (svPos ? { lat: svPos.lat, lng: svPos.lng } : null);
+    const pos = svPos ? { lat: svPos.lat, lng: svPos.lng } : null;
     if (!pos) return;
 
     const exists = polesRef.current.some(
