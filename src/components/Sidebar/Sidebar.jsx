@@ -34,7 +34,7 @@ const NAV_ITEMS = [
   {
     to: "/smart-poles",
     icon: "fa-solid fa-map-pin",
-    label: "İşıq Dirəkləri",
+    label: "Şəhər infrastrukturu",
   },
 ];
 
