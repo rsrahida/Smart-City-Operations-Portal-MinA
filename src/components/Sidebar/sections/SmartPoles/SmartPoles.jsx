@@ -52,7 +52,7 @@ const OBJECT_TYPES = {
   },
   camera: {
     id: "camera",
-    label: "Kamera ",
+    label: "Kamera",
     emoji: "",
     color: "#7c3aed",
     colorLight: "#faf5ff",
@@ -96,19 +96,32 @@ async function geocode(lat, lng) {
 }
 
 async function findNearbyImage(lat, lng) {
+  const delta = 0.001;
+  const [w, s, e, n] = [lng - delta, lat - delta, lng + delta, lat + delta];
   try {
     const r = await fetch(
-      `https://graph.mapillary.com/images?access_token=${MAPILLARY_TOKEN}&fields=id,geometry` +
-        `&bbox=${lng - 0.001},${lat - 0.001},${lng + 0.001},${lat + 0.001}&limit=1`,
+      `https://graph.mapillary.com/images?access_token=${MAPILLARY_TOKEN}` +
+        `&fields=id,geometry&bbox=${w},${s},${e},${n}&limit=10`,
     );
     const d = await r.json();
-    if (d.data?.length > 0) return d.data[0];
-    const r2 = await fetch(
-      `https://graph.mapillary.com/images?access_token=${MAPILLARY_TOKEN}&fields=id,geometry` +
-        `&bbox=${lng - 0.003},${lat - 0.003},${lng + 0.003},${lat + 0.003}&limit=1`,
-    );
-    const d2 = await r2.json();
-    return d2.data?.[0] || null;
+    if (!d.data?.length) return null;
+
+    let best = null,
+      bestDist = Infinity;
+    for (const img of d.data) {
+      const [iLng, iLat] = img.geometry.coordinates;
+      const dist = Math.hypot(iLat - lat, iLng - lng);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = { id: img.id, lat: iLat, lng: iLng, dist };
+      }
+    }
+
+    // 80 metrdən uzaqdırsa — yoxdur say
+    const MAX_DIST_DEG = 0.00072; // ~80 metr
+    if (bestDist > MAX_DIST_DEG) return null;
+
+    return best;
   } catch {
     return null;
   }
@@ -194,7 +207,6 @@ const CSS = `
 
   .sp-root { display:flex;flex-direction:column;height:100vh;font-family:"DM Sans",system-ui,sans-serif;background:#fffbf5;overflow:hidden; }
 
-  /* Header */
   .sp-header { display:flex;align-items:center;gap:14px;padding:0 28px;height:65px;background:#bb5d00;box-shadow:0 4px 24px rgba(187,93,0,.28);flex-shrink:0;z-index:10; }
   .sp-hbrand { display:flex;align-items:center;gap:10px; }
   .sp-hlogo { width:34px;height:34px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.15);flex-shrink:0; }
@@ -212,7 +224,6 @@ const CSS = `
   .sp-clear-btn { font-size:12px;padding:8px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.15);cursor:pointer;transition:background .15s;font-weight:600; }
   .sp-clear-btn:hover { background:rgba(255,255,255,.25); }
 
-  /* Body */
   .sp-body { display:flex;flex:1;overflow:hidden; }
   .sp-map-col { position:relative;flex:0 0 50%;width:50%; }
   .sp-map { width:100%;height:100%; }
@@ -221,10 +232,8 @@ const CSS = `
   .sp-drag-card { background:rgba(255,251,245,.97);border:2px dashed #f59e0b;border-radius:16px;padding:16px 28px;font-size:14px;color:#92400e;font-weight:600;display:flex;align-items:center;gap:10px; }
   .sp-drag-pulse { width:10px;height:10px;border-radius:50%;background:#f59e0b;animation:sp-pulse .6s ease-in-out infinite alternate; }
 
-  /* Right panel */
   .sp-panel { display:flex;flex-direction:column;flex:0 0 50%;width:50%;background:#fffbf5;border-left:2px solid #fed7aa;overflow:hidden; }
 
-  /* Viewer section */
   .sp-sv-section { flex:1;display:flex;flex-direction:column;overflow:hidden;border-bottom:1px solid #fed7aa; }
   .sp-sv-placeholder { display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;padding:24px; }
   .sp-sv-placeholder-icon { width:56px;height:56px;border-radius:16px;background:#fff7ed;border:1.5px solid #fed7aa;display:flex;align-items:center;justify-content:center; }
@@ -241,54 +250,32 @@ const CSS = `
   .sp-sv-body { flex:1;position:relative;overflow:hidden; }
   .sp-mly-viewer { width:100%;height:100%; }
 
-  /* Object type picker */
   .sp-type-picker { position:absolute;bottom:0;left:0;right:0;z-index:200;padding:10px 10px 8px;background:linear-gradient(to top,rgba(255,251,245,1) 70%,transparent);display:flex;flex-direction:column;gap:8px; }
-  .sp-type-picker-label { font-size:11px;font-weight:700;color:#78350f;letter-spacing:.4px;text-transform:uppercase;padding:0 2px; }
   .sp-type-row { display:flex;gap:6px; }
-
-  .sp-type-btn {
-    flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
-    padding:8px 4px 7px;border-radius:11px;border:1.5px solid #fde8cb;
-    background:#fff;cursor:pointer;transition:all .15s;font-family:"DM Sans",sans-serif;
-  }
+  .sp-type-btn { flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px 7px;border-radius:11px;border:1.5px solid #fde8cb;background:#fff;cursor:pointer;transition:all .15s;font-family:"DM Sans",sans-serif; }
   .sp-type-btn:hover { border-color:#f59e0b;background:#fffbf5;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.08); }
   .sp-type-btn.active { border-width:2px;box-shadow:0 4px 16px rgba(0,0,0,.12);transform:translateY(-1px); }
   .sp-type-btn-icon { width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center; }
   .sp-type-btn-label { font-size:10px;font-weight:600;color:#78350f;text-align:center;line-height:1.2; }
 
-  /* Action bar */
   .sp-action-bar { display:flex;gap:6px;align-items:center; }
   .sp-add-btn { flex:1;padding:10px 14px;border-radius:10px;border:1px solid #fed7aa;background:#fff7ed;color:#bb5d00;font-family:"DM Sans",sans-serif;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .18s;font-weight:600; }
-  .sp-add-btn:hover { background:#ffedd5;border-color:#f59e0b; }
   .sp-confirm-btn { padding:10px 16px;border-radius:10px;border:1.5px solid #16a34a;background:#16a34a;color:#fff;font-family:"DM Sans",sans-serif;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .18s;font-weight:700;white-space:nowrap; }
   .sp-confirm-btn:hover { background:#15803d; }
   .sp-confirm-btn:disabled { opacity:.45;cursor:not-allowed; }
-
   .sp-added-success { width:100%;padding:10px;border-radius:10px;background:#fff7ed;color:#bb5d00;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid #fed7aa; }
 
-  /* Pending strip */
-  .sp-pending-strip { padding:6px 10px;background:#fffbf5;border-top:1px solid #fde8cb;display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:36px; }
-  .sp-pending-label { font-size:10px;color:#b45309;font-weight:700;text-transform:uppercase;letter-spacing:.4px;flex-shrink:0; }
-  .sp-pending-chip { display:flex;align-items:center;gap:5px;padding:3px 8px 3px 6px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;transition:opacity .15s; }
-  .sp-pending-chip:hover { opacity:.75; }
-  .sp-pending-chip-x { font-size:12px;line-height:1;margin-left:2px; }
-  .sp-pending-empty { font-size:11px;color:#b45309;opacity:.5; }
-
-  /* Viewer click hint */
   .sp-viewer-click-hint { position:absolute;bottom:160px;left:0;right:0;text-align:center;pointer-events:none; }
   .sp-viewer-click-hint span { font-size:11px;padding:5px 12px;border-radius:20px;background:rgba(187,93,0,.75);color:#fff;display:inline-flex;align-items:center;gap:5px;font-weight:500; }
 
-  /* Viewer pole markers */
   .sp-viewer-obj-marker { position:absolute;pointer-events:none;z-index:100;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);animation:sp-marker-drop .22s cubic-bezier(.34,1.56,.64,1); }
   .sp-viewer-obj-head { width:34px;height:34px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 0 5px rgba(0,0,0,.1),0 4px 14px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center; }
   .sp-viewer-obj-stem { width:2px;height:8px;opacity:.75; }
 
-  /* No image */
   .sp-no-image-box { display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;padding:24px;color:#b45309; }
   .sp-no-image-box p { font-size:13px;color:#78350f;text-align:center; }
   .sp-no-image-sub { font-size:11px;color:#b45309;opacity:.7; }
 
-  /* Feed section */
   .sp-report-section { flex:0 0 230px;display:flex;flex-direction:column;overflow:hidden;background:#fffbf5; }
   .sp-report-top { display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #fde8cb;background:#fff7ed;flex-shrink:0; }
   .sp-report-title { font-size:12px;font-weight:700;color:#78350f;display:flex;align-items:center;gap:6px; }
@@ -309,7 +296,6 @@ const CSS = `
   .sp-feed-addr { font-size:10px;color:#78350f;display:flex;align-items:flex-start;gap:4px;line-height:1.4;opacity:.75; }
   .sp-feed-coord { font-size:10px;color:#b45309;font-family:monospace;margin-top:2px;opacity:.6; }
 
-  /* Modal */
   .sp-modal-backdrop { position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9000;display:flex;align-items:center;justify-content:center; }
   .sp-modal { background:#fff;border-radius:16px;padding:28px 24px 20px;max-width:340px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.2); }
   .sp-modal h3 { font-size:15px;font-weight:700;color:#1e293b;margin:0 0 16px; }
@@ -317,7 +303,6 @@ const CSS = `
   .sp-modal-cancel { flex:1;padding:10px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b;font-family:"DM Sans",sans-serif;font-size:13px;cursor:pointer;font-weight:600; }
   .sp-modal-confirm { flex:1;padding:10px;border-radius:10px;border:none;background:#ef4444;color:#fff;font-family:"DM Sans",sans-serif;font-size:13px;cursor:pointer;font-weight:700; }
 
-  /* Peg preview */
   .sp-peg-preview { position:absolute;pointer-events:none;z-index:3000;transform:translate(-50%,-130%);transition:left .05s,top .05s; }
   .sp-peg-preview-inner { background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.35);border:2.5px solid #fbbf24;width:140px; }
   .sp-peg-preview-img { width:140px;height:88px;object-fit:cover;display:block;background:#1e293b; }
@@ -326,6 +311,9 @@ const CSS = `
   .sp-peg-preview-dot { width:5px;height:5px;border-radius:50%;background:#22c55e;flex-shrink:0; }
   .sp-peg-preview-dot.no { background:#ef4444; }
   .sp-peg-preview-arrow { position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid #fbbf24; }
+
+  .sp-coverage-legend { position:absolute;bottom:50px;right:10px;z-index:1000;background:rgba(255,251,245,.94);backdrop-filter:blur(8px);border:1px solid #fed7aa;border-radius:12px;padding:7px 11px;font-size:11px;color:#78350f;display:flex;align-items:center;gap:7px;box-shadow:0 2px 10px rgba(187,93,0,.12);font-weight:500;pointer-events:none; }
+  .sp-coverage-line { width:22px;height:3px;border-radius:2px;background:#1da1f2;flex-shrink:0; }
 
   .sp-spinner { width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;animation:sp-spin .7s linear infinite; }
   .sp-tooltip { font-size:11px;padding:5px 8px;border-radius:6px; }
@@ -346,6 +334,96 @@ function injectCSS() {
   document.head.appendChild(style);
 }
 
+function createMlySequenceLayer(map, L, token) {
+  let active = false;
+  let tileLayer = null;
+
+  const CanvasTileLayer = L.GridLayer.extend({
+    createTile(coords, done) {
+      const tile = document.createElement("canvas");
+      tile.width = 256;
+      tile.height = 256;
+      const ctx = tile.getContext("2d");
+      const { x, y, z } = coords;
+      const nw = map.unproject(L.point(x * 256, y * 256), z);
+      const se = map.unproject(L.point((x + 1) * 256, (y + 1) * 256), z);
+      const west = nw.lng,
+        north = nw.lat,
+        east = se.lng,
+        south = se.lat;
+
+      if (z < 13) {
+        done(null, tile);
+        return tile;
+      }
+
+      fetch(
+        `https://graph.mapillary.com/images?access_token=${token}` +
+          `&fields=id,geometry,sequence&bbox=${west},${south},${east},${north}&limit=200`,
+      )
+        .then((r) => r.json())
+        .then((data) => {
+          if (!active) return;
+          const imgs = data.data || [];
+          const seqs = {};
+          imgs.forEach((img) => {
+            const [lng, lat] = img.geometry.coordinates;
+            const sid = img.sequence || img.id;
+            if (!seqs[sid]) seqs[sid] = [];
+            seqs[sid].push({ lat, lng });
+          });
+          ctx.clearRect(0, 0, 256, 256);
+          ctx.strokeStyle = "#1da1f2";
+          ctx.lineWidth = 3;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.globalAlpha = 0.85;
+          const latToY = (lat) => ((north - lat) / (north - south)) * 256;
+          const lngToX = (lng) => ((lng - west) / (east - west)) * 256;
+          Object.values(seqs).forEach((pts) => {
+            if (pts.length < 1) return;
+            ctx.beginPath();
+            ctx.moveTo(lngToX(pts[0].lng), latToY(pts[0].lat));
+            for (let i = 1; i < pts.length; i++)
+              ctx.lineTo(lngToX(pts[i].lng), latToY(pts[i].lat));
+            ctx.stroke();
+            ctx.fillStyle = "#1da1f2";
+            pts.forEach((p) => {
+              ctx.beginPath();
+              ctx.arc(lngToX(p.lng), latToY(p.lat), 3, 0, Math.PI * 2);
+              ctx.fill();
+            });
+          });
+          done(null, tile);
+        })
+        .catch(() => done(null, tile));
+      return tile;
+    },
+  });
+
+  function show() {
+    if (active) return;
+    active = true;
+    tileLayer = new CanvasTileLayer({
+      tileSize: 256,
+      keepBuffer: 0,
+      updateWhenIdle: false,
+      updateWhenZooming: false,
+      zIndex: 400,
+    });
+    tileLayer.addTo(map);
+  }
+  function hide() {
+    if (!active) return;
+    active = false;
+    if (tileLayer) {
+      tileLayer.remove();
+      tileLayer = null;
+    }
+  }
+  return { show, hide };
+}
+
 export default function SmartPoles() {
   const mapDivRef = useRef(null);
   const mlyDivRef = useRef(null);
@@ -359,9 +437,9 @@ export default function SmartPoles() {
   const pegPreviewStatusRef = useRef(null);
   const previewFetchTimerRef = useRef(null);
   const previewMapMarkersRef = useRef([]);
+  const coverageLayerRef = useRef(null);
 
   const init = persistLoad();
-
   const [objects, setObjects] = useState(init.objects);
   const [report, setReport] = useState(init.report);
   const [pending, setPending] = useState([]);
@@ -374,6 +452,7 @@ export default function SmartPoles() {
   const [confirmedAnim, setConfirmedAnim] = useState(false);
   const [savedAnim, setSavedAnim] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showCoverage, setShowCoverage] = useState(false);
 
   const objectsRef = useRef(objects);
   const reportRef = useRef(report);
@@ -510,11 +589,12 @@ export default function SmartPoles() {
       L.control.zoom({ position: "bottomright" }).addTo(map);
       mapRef.current = map;
 
+      const coverageLayer = createMlySequenceLayer(map, L, MAPILLARY_TOKEN);
+      coverageLayerRef.current = coverageLayer;
+
+      // ── Xəritəyə klik ──────────────────────────────────────────────
       map.on("click", async (e) => {
         const { lat, lng } = e.latlng;
-        const originLat = lat;
-        const originLng = lng;
-
         if (clickMarkerRef.current) {
           clickMarkerRef.current.remove();
           clickMarkerRef.current = null;
@@ -543,6 +623,8 @@ export default function SmartPoles() {
         setShowSV(false);
         setNoImage(false);
         setPending([]);
+
+        // Yalnız kliklədiyin nöqtəni yoxla — heç bir yönləndirmə yoxdur
         const [address, img] = await Promise.all([
           geocode(lat, lng),
           findNearbyImage(lat, lng),
@@ -550,17 +632,12 @@ export default function SmartPoles() {
         setGeocoding(false);
 
         if (!img) {
+          // Görüntü yoxdur — sadəcə mesaj göstər
           setNoImage(true);
-          setSvPos({ lat, lng, originLat, originLng, address, imageId: null });
+          setSvPos({ lat, lng, address, imageId: null });
         } else {
-          setSvPos({
-            lat,
-            lng,
-            originLat,
-            originLng,
-            address,
-            imageId: img.id,
-          });
+          // Görüntü var — birbaşa aç
+          setSvPos({ lat: img.lat, lng: img.lng, address, imageId: img.id });
         }
         setShowSV(true);
       });
@@ -594,6 +671,8 @@ export default function SmartPoles() {
 
       peg.on("dragstart", () => {
         setDragging(true);
+        coverageLayerRef.current?.show();
+        setShowCoverage(true);
         const pos = peg.getLatLng();
         const containerPt = map.latLngToContainerPoint(pos);
         const el = ensurePegPreview(mapDivRef.current);
@@ -602,11 +681,11 @@ export default function SmartPoles() {
         el.style.top = containerPt.y + "px";
         updatePegPreviewImage(pos.lat, pos.lng);
       });
+
       peg.on("drag", () => {
         const ll = peg.getLatLng();
-        if (dzRef.current) {
-          dzRef.current.setLatLng(ll);
-        } else {
+        if (dzRef.current) dzRef.current.setLatLng(ll);
+        else {
           dzRef.current = L.circleMarker(ll, {
             radius: 18,
             color: "#bb5d00",
@@ -628,40 +707,41 @@ export default function SmartPoles() {
           400,
         );
       });
+
       peg.on("dragend", async () => {
         setDragging(false);
+        coverageLayerRef.current?.hide();
+        setShowCoverage(false);
         hidePegPreview();
         if (dzRef.current) {
           dzRef.current.remove();
           dzRef.current = null;
         }
+
         const { lat, lng } = peg.getLatLng();
-        const originLat = lat;
-        const originLng = lng;
+
         setGeocoding(true);
+        setShowSV(false);
         setNoImage(false);
         setPending([]);
+
         const [address, img] = await Promise.all([
           geocode(lat, lng),
           findNearbyImage(lat, lng),
         ]);
         setGeocoding(false);
+
         if (!img) {
           setNoImage(true);
-          setSvPos({ lat, lng, originLat, originLng, address, imageId: null });
+          setSvPos({ lat, lng, address, imageId: null });
         } else {
-          setSvPos({
-            lat,
-            lng,
-            originLat,
-            originLng,
-            address,
-            imageId: img.id,
-          });
+          setSvPos({ lat: img.lat, lng: img.lng, address, imageId: img.id });
         }
         setShowSV(true);
+
         peg.setLatLng(getPegPos());
       });
+
       map.on("moveend zoomend", () => pegRef.current?.setLatLng(getPegPos()));
     })();
     return () => {
@@ -693,16 +773,12 @@ export default function SmartPoles() {
       });
       mlyRef.current = viewer;
 
-      let camLatLng = {
-        lat: svPos.originLat ?? svPos.lat,
-        lng: svPos.originLng ?? svPos.lng,
-      };
+      let camLatLng = { lat: svPos.lat, lng: svPos.lng };
       viewer.on("image", (evt) => {
         try {
           const img = evt.image;
-          if (img?.lngLat) {
+          if (img?.lngLat)
             camLatLng = { lat: img.lngLat.lat, lng: img.lngLat.lng };
-          }
         } catch {}
       });
 
@@ -721,16 +797,12 @@ export default function SmartPoles() {
 
         try {
           const pov = await viewer.getPointOfView();
-
           const normX = rect.width > 0 ? (px / rect.width) * 2 - 1 : 0;
           const normY = rect.height > 0 ? (py / rect.height) * 2 - 1 : 0;
-
           const hFov = 90;
-          const vFov = 60;
           const bearingDeg = (pov.bearing + normX * (hFov / 2) + 360) % 360;
           const horizY = 0.3;
           const relY = normY - horizY;
-
           let distM;
           if (relY <= 0) {
             const t = Math.max(0.01, -relY);
@@ -739,20 +811,17 @@ export default function SmartPoles() {
             const t = Math.min(1, relY / 0.7);
             distM = 50 - t * 49;
           }
-
           const bearingRad = (bearingDeg * Math.PI) / 180;
           const dLat = (distM * Math.cos(bearingRad)) / 111320;
           const dLng =
             (distM * Math.sin(bearingRad)) /
             (111320 * Math.cos((camLatLng.lat * Math.PI) / 180));
-
           itemLat = camLatLng.lat + dLat;
           itemLng = camLatLng.lng + dLng;
         } catch {}
 
         const currentType = selectedTypeRef.current;
         const newId = Date.now() + Math.random();
-
         setPending((prev) => [
           ...prev,
           {
@@ -826,13 +895,7 @@ export default function SmartPoles() {
 
   const confirmPending = useCallback(async () => {
     if (!pending.length || !svPos) return;
-    const address =
-      svPos.address ||
-      (await geocode(
-        svPos.originLat ?? svPos.lat,
-        svPos.originLng ?? svPos.lng,
-      ));
-
+    const address = svPos.address || (await geocode(svPos.lat, svPos.lng));
     const newObjects = pending.map((p, i) => {
       const t = OBJECT_TYPES[p.typeId];
       const countOfType = objectsRef.current.filter(
@@ -848,7 +911,6 @@ export default function SmartPoles() {
         source: "viewer",
       };
     });
-
     const newEntries = newObjects.map((obj) => ({
       time: new Date().toLocaleTimeString("az-AZ"),
       ...obj,
@@ -856,7 +918,6 @@ export default function SmartPoles() {
       lng: obj.lng.toFixed(6),
       action: `360° görüntüdən əlavə edildi`,
     }));
-
     setObjects((prev) => {
       const next = [...prev, ...newObjects];
       persistSave(next, [...newEntries, ...reportRef.current]);
@@ -866,7 +927,6 @@ export default function SmartPoles() {
     setPending([]);
     setConfirmedAnim(true);
     setTimeout(() => setConfirmedAnim(false), 2200);
-
     if (clickMarkerRef.current) {
       clickMarkerRef.current.remove();
       clickMarkerRef.current = null;
@@ -876,17 +936,6 @@ export default function SmartPoles() {
     const flyTarget = newObjects[0] || svPos;
     mapRef.current?.flyTo([flyTarget.lat, flyTarget.lng], 18, { duration: 1 });
   }, [pending, svPos]);
-
-  const removePending = useCallback((id) => {
-    setPending((prev) => prev.filter((p) => p.id !== id));
-    const idx = previewMapMarkersRef.current.findIndex(
-      (m) => m._pendingId === id,
-    );
-    if (idx !== -1) {
-      previewMapMarkersRef.current[idx].remove();
-      previewMapMarkersRef.current.splice(idx, 1);
-    }
-  }, []);
 
   const closeSV = useCallback(() => {
     setShowSV(false);
@@ -937,7 +986,6 @@ export default function SmartPoles() {
             Şəhər infrastrukturunun xəritələşdirilməsi
           </span>
         </div>
-
         <div className="sp-hcenter">
           {geocoding ? (
             <span className="sp-hgeocoding">
@@ -946,7 +994,7 @@ export default function SmartPoles() {
             </span>
           ) : dragging ? (
             <span className="sp-hdragging">
-              Dirək əlavə etmə istədiyiniz yerə buraxın
+              Mavi xətt olan əraziyə buraxın — görüntü açılacaq
             </span>
           ) : pending.length > 0 ? (
             <span className="sp-hselected">
@@ -961,7 +1009,6 @@ export default function SmartPoles() {
             </span>
           )}
         </div>
-
         <div className="sp-hright">
           <span className={`sp-saved-ind ${savedAnim ? "visible" : ""}`}>
             <svg
@@ -999,11 +1046,19 @@ export default function SmartPoles() {
             </svg>
             Küçəyə klik edin və ya sarı markeri sürükləyin
           </div>
+
+          {showCoverage && (
+            <div className="sp-coverage-legend">
+              <div className="sp-coverage-line" />
+              Mapillary görüntü əhatəsi
+            </div>
+          )}
+
           {dragging && (
             <div className="sp-drag-overlay">
               <div className="sp-drag-card">
                 <div className="sp-drag-pulse" />
-                360° görüntü olan ərazilərə buraxın
+                Mavi xətt olan əraziyə buraxın — görüntü açılacaq
               </div>
             </div>
           )}
@@ -1042,8 +1097,7 @@ export default function SmartPoles() {
                   <div className="sp-sv-header-info">
                     <p className="sp-sv-address">{svPos.address}</p>
                     <p className="sp-sv-coord">
-                      {(svPos.originLat ?? svPos.lat).toFixed(6)},{" "}
-                      {(svPos.originLng ?? svPos.lng).toFixed(6)}
+                      {svPos.lat.toFixed(6)}, {svPos.lng.toFixed(6)}
                     </p>
                   </div>
                   <button className="sp-sv-close-btn" onClick={closeSV}>
@@ -1060,12 +1114,10 @@ export default function SmartPoles() {
                     </svg>
                   </button>
                 </div>
-
                 <div className="sp-sv-body">
                   {svPos.imageId ? (
                     <>
                       <div ref={mlyDivRef} className="sp-mly-viewer" />
-
                       {pending.map((p) => {
                         const t = OBJECT_TYPES[p.typeId];
                         return (
@@ -1091,7 +1143,6 @@ export default function SmartPoles() {
                           </div>
                         );
                       })}
-
                       {pending.length === 0 && (
                         <div className="sp-viewer-click-hint">
                           <span>
@@ -1114,7 +1165,6 @@ export default function SmartPoles() {
                           </span>
                         </div>
                       )}
-
                       <div className="sp-type-picker">
                         <div className="sp-type-row">
                           {Object.values(OBJECT_TYPES).map((t) => (
@@ -1158,7 +1208,6 @@ export default function SmartPoles() {
                             </button>
                           ))}
                         </div>
-
                         <div className="sp-action-bar">
                           {confirmedAnim ? (
                             <div className="sp-added-success">
@@ -1239,9 +1288,9 @@ export default function SmartPoles() {
                         <circle cx="8.5" cy="8.5" r="1.5" />
                         <polyline points="21 15 16 10 5 21" />
                       </svg>
-                      <p>Küçə görüntüsü yoxdur</p>
+                      <p>Bu ərazidə küçə görüntüsü yoxdur</p>
                       <small className="sp-no-image-sub">
-                        Yaxın başqa bir yerə klik edin
+                        Mavi xətt olan başqa bir yerə klik edin
                       </small>
                     </div>
                   )}
@@ -1250,7 +1299,6 @@ export default function SmartPoles() {
             )}
           </div>
 
-          {/* Feed */}
           <div className="sp-report-section">
             <div className="sp-report-top">
               <span className="sp-report-title">Əlavə olunanlar :</span>
